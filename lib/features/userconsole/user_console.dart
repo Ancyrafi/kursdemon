@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/build_text_field.dart';
+
 class UserConsole extends StatefulWidget {
   const UserConsole({super.key});
 
@@ -99,6 +101,7 @@ class _UserConsoleState extends State<UserConsole> {
       case 1:
         return [
           const Text('Dodawanie Użytkownika'),
+          const BuildTextField(hintText: 'Podaj E-mail Użytkownika',)
         ];
       case 2:
         return [
@@ -123,10 +126,3 @@ class _UserConsoleState extends State<UserConsole> {
 }
 
 
-
-// TextField(
-//   decoration: InputDecoration(hintText: 'Podaj E-mail Użytkownika'),
-// ),
-// TextField(
-//   decoration: InputDecoration(hintText: 'Podaj E-mail Użytkownika'),
-// ),

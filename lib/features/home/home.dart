@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:kursdemo/features/userconsole/user_console.dart';
 
-
 import '../list_lesson/list_lesson.dart';
 import '../socialmedia/socialmedia.dart';
 
@@ -34,24 +33,27 @@ class HomePage extends StatelessWidget {
           backgroundColor: const Color.fromARGB(174, 48, 46, 59),
           title: const Center(child: Text('     Nazwa Kursu')),
         ),
-        body: Row(
-          children: [
-            const Expanded(
-              child: ListLesson(),
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  Text('Mój Blog'),
-                ],
+        body: Card(
+          margin: const EdgeInsets.all(10),
+          child: Row(
+            children: [
+              const Expanded(
+                child: ListLesson(),
               ),
-            ),
-            const Align(
-              alignment: Alignment.bottomRight,
-              child: SocialMedia(),
-            ),
-          ],
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const [
+                    Text('Mój Blog'),
+                  ],
+                ),
+              ),
+              const Align(
+                alignment: Alignment.bottomRight,
+                child: SocialMedia(),
+              ),
+            ],
+          ),
         ));
   }
 }

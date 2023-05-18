@@ -88,7 +88,9 @@ class _UserConsoleState extends State<UserConsole> {
           ],
         ),
       ),
-      body: Center(child: userControlOption(index)),
+      body: Card(
+          margin: const EdgeInsets.all(10),
+          child: Center(child: userControlOption(index))),
     );
   }
 

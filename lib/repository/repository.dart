@@ -13,6 +13,20 @@ class Repository {
         videoLink: videoLink);
   }
 
+  Future<void> creLesson({required String lessonTitle}) async {
+    _firebaseDataSource.creaLesson(lessonTitle: lessonTitle);
+  }
+
+  Future<void> createSection(
+      {required String sublessonTitle,
+      required String videoLink,
+      required String lessonId}) async {
+    _firebaseDataSource.createSection(
+        sublessonTitle: sublessonTitle,
+        videoLink: videoLink,
+        lessonId: lessonId);
+  }
+
   Stream getLesson() {
     return _firebaseDataSource.getLesson();
   }

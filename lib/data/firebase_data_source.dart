@@ -17,6 +17,26 @@ class FirebaseDataSource {
         .add({'sublessonTitle': sublessonTitle, 'videoLink': videoLink});
   }
 
+  Future<String> creaLesson({required String lessonTitle}) async {
+    DocumentReference lessonReference = await FirebaseFirestore.instance
+        .collection('lesson')
+        .add({'lessonTitle': lessonTitle});
+
+    return lessonReference.id;
+  }
+
+  Future<void> createSection(
+      {required String sublessonTitle,
+      required String videoLink,
+      required String lessonId}) async {
+    // używamy identyfikatora lekcji zamiast tytułu
+    await FirebaseFirestore.instance
+        .collection('lesson')
+        .doc(lessonId)
+        .collection('section')
+        .add({'sublessonTitle': sublessonTitle, 'videoLink': videoLink});
+  }
+
   // Stream<List<Lesson>> getLesson() {
   //   return FirebaseFirestore.instance
   //       .collectionGroup('lesson')

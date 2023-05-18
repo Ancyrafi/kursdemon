@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../widgets/build_text_field.dart';
+import '../user_console_navigator/panel_of_lesson/lesson_panel.dart';
+import '../user_console_navigator/panel_of_users/user_panel.dart';
 
 class UserConsole extends StatefulWidget {
   const UserConsole({super.key});
@@ -11,6 +13,8 @@ class UserConsole extends StatefulWidget {
 
 final _scaffoldKey = GlobalKey<ScaffoldState>();
 int index = 0;
+final sectionTitle = TextEditingController();
+final videoLink = TextEditingController();
 
 class _UserConsoleState extends State<UserConsole> {
   @override
@@ -18,6 +22,7 @@ class _UserConsoleState extends State<UserConsole> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Administracja'),
         actions: <Widget>[
           IconButton(
@@ -36,7 +41,7 @@ class _UserConsoleState extends State<UserConsole> {
               child: Text('Panel Zarządzania'),
             ),
             ListTile(
-              title: const Text('Dodaj Użytkownika'),
+              title: const Text('Zarządzaj Użytkownikami'),
               onTap: () {
                 setState(() {
                   index = 1;
@@ -83,46 +88,59 @@ class _UserConsoleState extends State<UserConsole> {
           ],
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: userControlOption(index),
-        ),
-      ),
+      body: Center(child: userControlOption(index)),
     );
   }
 
-  List<Widget> userControlOption(int index) {
+  Widget userControlOption(int index) {
     switch (index) {
       case 0:
-        return [
-          const Text('Witaj w Panelu Administracyjnym'),
-        ];
+        // Indeks Startowy
+        return Column(children: const [
+          Text('Witaj w Panelu Administracyjnym'),
+        ]);
       case 1:
-        return [
-          const Text('Dodawanie Użytkownika'),
-          const BuildTextField(hintText: 'Podaj E-mail Użytkownika',)
-        ];
+        // Zarządzanie Użytkownikami
+        return const AddUsers();
+
       case 2:
-        return [
-          const Text('Dodawanie Lekcji'),
-        ];
+        // Zarządzanie Lekcjami
+        return LessonPanel();
       case 3:
-        return [
+        // Zarządzanie Sekcjami danych Lekcji
+        return Column(children: [
           const Text('Dodawanie Sekcji'),
-        ];
+          const SizedBox(
+            height: 10,
+          ),
+          BuildTextField(
+              hideText: false,
+              hintText: 'Podaj tytuł sekcji dla twojej lekcji',
+              controller: sectionTitle),
+          const SizedBox(
+            height: 10,
+          ),
+          BuildTextField(
+              hideText: false,
+              hintText: 'Wklej link do twojego filmu',
+              controller: videoLink),
+          const SizedBox(
+            height: 10,
+          ),
+          ElevatedButton(onPressed: () {}, child: const Text('Dodaj Sekcję'))
+        ]);
       case 4:
-        return [
-          const Text('Wpis na Blog'),
-        ];
+        // Blog
+        return Column(children: const [
+          Text('Wpis na Blog'),
+        ]);
       case 5:
-        return [
-          const Text('Dodawanie SocialMedia'),
-        ];
+        // Social Media
+        return Column(children: const [
+          Text('Dodawanie SocialMedia'),
+        ]);
       default:
-        return [];
+        return Column(children: const []);
     }
   }
 }
-
-

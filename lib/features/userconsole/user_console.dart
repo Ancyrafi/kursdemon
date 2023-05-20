@@ -98,7 +98,7 @@ class _UserConsoleState extends State<UserConsole> {
     switch (index) {
       case 0:
         // Indeks Startowy
-        return Column(children: const [
+        return const Column(children: [
           Text('Witaj w Panelu Administracyjnym'),
         ]);
       case 1:
@@ -133,16 +133,16 @@ class _UserConsoleState extends State<UserConsole> {
         ]);
       case 4:
         // Blog
-        return Column(children: const [
+        return const Column(children: [
           Text('Wpis na Blog'),
         ]);
       case 5:
         // Social Media
-        return Column(children: const [
+        return const Column(children: [
           Text('Dodawanie SocialMedia'),
         ]);
       default:
-        return Column(children: const []);
+        return const Center(child: CircularProgressIndicator());
     }
   }
 }

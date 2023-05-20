@@ -33,22 +33,22 @@ class HomePage extends StatelessWidget {
           backgroundColor: const Color.fromARGB(174, 48, 46, 59),
           title: const Center(child: Text('     Nazwa Kursu')),
         ),
-        body: Card(
-          margin: const EdgeInsets.all(10),
+        body: const Card(
+          margin: EdgeInsets.all(10),
           child: Row(
             children: [
-              const Expanded(
+              Expanded(
                 child: ListLesson(),
               ),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text('Mój Blog'),
                   ],
                 ),
               ),
-              const Align(
+              Align(
                 alignment: Alignment.bottomRight,
                 child: SocialMedia(),
               ),

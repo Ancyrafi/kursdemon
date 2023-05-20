@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kursdemo/features/user_console_navigator/panel_of_lesson/cubit/lesson_panel_cubit.dart';
+import 'package:kursdemo/features/user_console_navigator/panel_of_sections/sections.dart';
 import 'package:kursdemo/repository/repository.dart';
 import 'package:kursdemo/widgets/title_page_container.dart';
 
@@ -23,10 +24,15 @@ class LessonPanel extends StatelessWidget {
         builder: (context, state) {
           if (state.addLesson == false && state.addSection == false) {
             final oneLesson = state.lesson;
-            return Center(
+            return Container(
+              alignment: Alignment.center,
               child: Container(
-                padding: const EdgeInsets.all(10),
-                margin: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                padding: const EdgeInsets.all(50),
+                margin: const EdgeInsets.all(50),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -47,17 +53,31 @@ class LessonPanel extends StatelessWidget {
                                 for (final onSection in onLesson.sections)
                                   ListTile(
                                     title: Text('--> ${onSection.title}'),
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SectionPanel(
+                                                    sectionID:
+                                                        onSection.sectionID,
+                                                    videoLink: onSection.link,
+                                                    sectionTitle:
+                                                        onSection.title,
+                                                  )));
+                                    },
                                   ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.black),
                                     onPressed: () {
                                       context
                                           .read<LessonPanelCubit>()
                                           .addSection(onLesson.lessonID);
                                     },
-                                    child: const Text('Dodaj Sekcje'))
+                                    child: const Icon(Icons.add))
                               ],
                             ),
                           const SizedBox(
@@ -72,6 +92,8 @@ class LessonPanel extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.black),
                                       onPressed: () {
                                         context
                                             .read<LessonPanelCubit>()
@@ -80,6 +102,8 @@ class LessonPanel extends StatelessWidget {
                                       child: const Text('Dodaj Lekcję'),
                                     ),
                                     ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.black),
                                       onPressed: () {},
                                       child: const Text('Usuń Lekcję'),
                                     )

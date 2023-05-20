@@ -18,8 +18,8 @@ class SectionPanel extends StatelessWidget {
       ),
       body: Card(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: const [],
+          mainAxisAlignment: MainAxisAlignment.center,
         ),
       ),
     );

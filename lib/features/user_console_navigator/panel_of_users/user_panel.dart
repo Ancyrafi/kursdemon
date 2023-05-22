@@ -14,6 +14,8 @@ class AddUsers extends StatefulWidget {
 
 class _AddUsersState extends State<AddUsers> {
   final email = TextEditingController();
+  final name = TextEditingController();
+  final surname = TextEditingController();
   bool addUser = false;
   final password = TextEditingController();
 
@@ -40,6 +42,20 @@ class _AddUsersState extends State<AddUsers> {
     }
     return Column(children: [
       const Text('Dodawanie Użytkownika'),
+      const SizedBox(
+        height: 10,
+      ),
+      BuildTextField(
+          hideText: false,
+          hintText: 'Podaj imię swojego kursanta',
+          controller: name),
+      const SizedBox(
+        height: 10,
+      ),
+      BuildTextField(
+          hideText: false,
+          hintText: 'Podaj nazwisko swojego kursanta',
+          controller: surname),
       const SizedBox(
         height: 10,
       ),

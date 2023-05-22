@@ -50,6 +50,7 @@ class _LessonPanelState extends State<LessonPanel> {
                         children: [
                           for (final onLesson in oneLesson)
                             ExpansionTile(
+                              textColor: Colors.black,
                               childrenPadding: EdgeInsets.zero,
                               expandedAlignment: Alignment.center,
                               expandedCrossAxisAlignment:

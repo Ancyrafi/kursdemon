@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/build_text_field.dart';
 import '../user_console_navigator/panel_of_lesson/lesson_panel.dart';
 import '../user_console_navigator/panel_of_users/user_panel.dart';
 
@@ -59,7 +58,7 @@ class _UserConsoleState extends State<UserConsole> {
               },
             ),
             ListTile(
-              title: const Text('Dodaj Sekcje'),
+              title: const Text('Dodaj Wpis na Blog'),
               onTap: () {
                 setState(() {
                   index = 3;
@@ -68,19 +67,10 @@ class _UserConsoleState extends State<UserConsole> {
               },
             ),
             ListTile(
-              title: const Text('Dodaj Wpis na Blog'),
-              onTap: () {
-                setState(() {
-                  index = 4;
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
               title: const Text('Dodaj SocialMedia'),
               onTap: () {
                 setState(() {
-                  index = 5;
+                  index = 4;
                 });
                 Navigator.of(context).pop();
               },
@@ -108,35 +98,13 @@ class _UserConsoleState extends State<UserConsole> {
       case 2:
         // Zarządzanie Lekcjami
         return const LessonPanel();
+
       case 3:
-        // Zarządzanie Sekcjami danych Lekcji
-        return Column(children: [
-          const Text('Dodawanie Sekcji'),
-          const SizedBox(
-            height: 10,
-          ),
-          BuildTextField(
-              hideText: false,
-              hintText: 'Podaj tytuł sekcji dla twojej lekcji',
-              controller: sectionTitle),
-          const SizedBox(
-            height: 10,
-          ),
-          BuildTextField(
-              hideText: false,
-              hintText: 'Wklej link do twojego filmu',
-              controller: videoLink),
-          const SizedBox(
-            height: 10,
-          ),
-          ElevatedButton(onPressed: () {}, child: const Text('Dodaj Sekcję'))
-        ]);
-      case 4:
         // Blog
         return const Column(children: [
           Text('Wpis na Blog'),
         ]);
-      case 5:
+      case 4:
         // Social Media
         return const Column(children: [
           Text('Dodawanie SocialMedia'),

@@ -107,7 +107,7 @@ class _UserConsoleState extends State<UserConsole> {
 
       case 2:
         // Zarządzanie Lekcjami
-        return LessonPanel();
+        return const LessonPanel();
       case 3:
         // Zarządzanie Sekcjami danych Lekcji
         return Column(children: [

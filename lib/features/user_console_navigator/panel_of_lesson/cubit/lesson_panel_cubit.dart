@@ -64,6 +64,10 @@ class LessonPanelCubit extends Cubit<LessonPanelState> {
         lessonId: lessonID);
   }
 
+  Future<void> deleteLesson(String lessonID) async {
+    await _repository.deleteLesson(lessonID);
+  }
+
   @override
   Future<void> close() {
     _streamSubscription?.cancel();

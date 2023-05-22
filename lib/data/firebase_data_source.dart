@@ -5,18 +5,6 @@ import 'package:kursdemo/model/model.dart';
 final userID = FirebaseAuth.instance.currentUser?.uid;
 
 class FirebaseDataSource {
-  Future<void> createLesson(
-      {required String lessonTitle,
-      required String sublessonTitle,
-      required String videoLink}) async {
-    DocumentReference lessonColection = await FirebaseFirestore.instance
-        .collection('lesson')
-        .add({'lessonTitle': lessonTitle});
-    await lessonColection
-        .collection('section')
-        .add({'sublessonTitle': sublessonTitle, 'videoLink': videoLink});
-  }
-
   Future<String> creaLesson({required String lessonTitle}) async {
     DocumentReference lessonReference = await FirebaseFirestore.instance
         .collection('lesson')
@@ -24,6 +12,24 @@ class FirebaseDataSource {
 
     return lessonReference.id;
   }
+
+  Future<void> deleteLesson({required String lessonId}) async {
+    await FirebaseFirestore.instance
+        .collection('lesson')
+        .doc(lessonId)
+        .delete();
+  }
+
+  Future<void> deletSection(
+      {required String lessonid, required String sectionid}) async {
+    await FirebaseFirestore.instance
+        .collection('lesson')
+        .doc(lessonid)
+        .collection('section')
+        .doc(sectionid)
+        .delete();
+  }
+
 
   Future<void> createSection(
       {required String sublessonTitle,
@@ -36,20 +42,6 @@ class FirebaseDataSource {
         .collection('section')
         .add({'sublessonTitle': sublessonTitle, 'videoLink': videoLink});
   }
-
-  // Stream<List<Lesson>> getLesson() {
-  //   return FirebaseFirestore.instance
-  //       .collectionGroup('lesson')
-  //       .snapshots()
-  //       .map((querySnapshot) {
-  //     return querySnapshot.docs.map((doc) {
-  //       return Lesson(
-  //         title: doc['lessonTitle'],
-  //         lessonID: doc.id,
-  //       );
-  //     }).toList();
-  //   });
-  // }
 
   Stream<List<Lesson>> getLesson() {
     return FirebaseFirestore.instance
@@ -67,24 +59,6 @@ class FirebaseDataSource {
     });
   }
 
-//   Stream<List<Section>> getSection({required String lessonID,}) {
-//     return FirebaseFirestore.instance
-//         .collection('Users')
-//         .doc(userID)
-//         .collection('lesson')
-//         .doc(lessonID)
-//         .collection('section')
-//         .snapshots()
-//         .map((querySnapshot) {
-//       return querySnapshot.docs.map((doc) {
-//         return Section(
-//             title: doc['sublessonTitle'],
-//             link: doc['videoLink'],
-//             sectionID: doc.id);
-//       }).toList();
-//     });
-//   }
-// }
   Stream<List<Section>> getSection({required String lessonID}) {
     return FirebaseFirestore.instance
         .collection('lesson')

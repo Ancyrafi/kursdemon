@@ -7,14 +7,22 @@ import 'package:kursdemo/widgets/title_page_container.dart';
 
 import '../../../widgets/build_text_field.dart';
 
-class LessonPanel extends StatelessWidget {
-  LessonPanel({
+class LessonPanel extends StatefulWidget {
+  const LessonPanel({
     super.key,
   });
 
+  @override
+  State<LessonPanel> createState() => _LessonPanelState();
+}
+
+class _LessonPanelState extends State<LessonPanel> {
   final lessonTitle = TextEditingController();
+
   final sectionTitle = TextEditingController();
+
   final videoLink = TextEditingController();
+  String? selectedLessonID;
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +71,7 @@ class LessonPanel extends StatelessWidget {
                                                     videoLink: onSection.link,
                                                     sectionTitle:
                                                         onSection.title,
+                                                    lessonID: onLesson.lessonID,
                                                   )));
                                     },
                                   ),
@@ -101,12 +110,46 @@ class LessonPanel extends StatelessWidget {
                                       },
                                       child: const Text('Dodaj Lekcję'),
                                     ),
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.black),
-                                      onPressed: () {},
-                                      child: const Text('Usuń Lekcję'),
-                                    )
+                                    Column(
+                                      children: [
+                                        DropdownButton<String>(
+                                            value: selectedLessonID,
+                                            hint: const Text('Wybierz lekcję'),
+                                            dropdownColor: Colors.black,
+                                            items: [
+                                              for (final onLesson in oneLesson)
+                                                DropdownMenuItem(
+                                                  value: onLesson.lessonID,
+                                                  child: Text(onLesson.title),
+                                                )
+                                            ],
+                                            onChanged: (String? newValue) {
+                                              setState(() {
+                                                selectedLessonID = newValue;
+                                              });
+                                            }),
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.black),
+                                          onPressed: () {
+                                            if (selectedLessonID == null) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(const SnackBar(
+                                                      backgroundColor:
+                                                          Colors.black,
+                                                      content: Text(
+                                                          'Musisz wybrać lekcję')));
+                                            } else {
+                                              context
+                                                  .read<LessonPanelCubit>()
+                                                  .deleteLesson(
+                                                      selectedLessonID!);
+                                            }
+                                          },
+                                          child: const Text('Usuń Lekcję'),
+                                        )
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ],

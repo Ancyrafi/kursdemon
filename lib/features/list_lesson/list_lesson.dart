@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kursdemo/features/list_lesson/cubit/lesson_cubit.dart';
+import 'package:kursdemo/features/sections/user_section.dart';
 
 import 'package:kursdemo/repository/repository.dart';
 
@@ -52,7 +53,14 @@ class _ListLessonState extends State<ListLesson> {
                     for (final onSection in onLesson.sections)
                       ListTile(
                         title: Text(onSection.title),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => UserSectionPage(
+                                    sectionID: onSection.sectionID,
+                                    videLink: onSection.link,
+                                    sectionTitle: onSection.title,
+                                  )));
+                        },
                       )
                   ],
                 ),

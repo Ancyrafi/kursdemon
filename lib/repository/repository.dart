@@ -3,16 +3,6 @@ import 'package:kursdemo/data/firebase_data_source.dart';
 class Repository {
   final FirebaseDataSource _firebaseDataSource = FirebaseDataSource();
 
-  Future<void> createLesson(
-      {required String lessonTitle,
-      required String sublessonTitle,
-      required String videoLink}) async {
-    _firebaseDataSource.createLesson(
-        lessonTitle: lessonTitle,
-        sublessonTitle: sublessonTitle,
-        videoLink: videoLink);
-  }
-
   Future<void> creLesson({required String lessonTitle}) async {
     _firebaseDataSource.creaLesson(lessonTitle: lessonTitle);
   }
@@ -33,5 +23,15 @@ class Repository {
 
   Stream getSection({required String lessonID}) {
     return _firebaseDataSource.getSection(lessonID: lessonID);
+  }
+
+  Future<void> deleteLesson(String lessonID) async {
+    await _firebaseDataSource.deleteLesson(lessonId: lessonID);
+  }
+
+  Future<void> deleteSection(
+      {required String lessonID, required String sectionID}) async {
+    await _firebaseDataSource.deletSection(
+        lessonid: lessonID, sectionid: sectionID);
   }
 }

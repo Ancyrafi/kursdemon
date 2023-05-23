@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:kursdemo/model/model.dart';
 
 final userID = FirebaseAuth.instance.currentUser?.uid;
 
 class FirebaseDataSource {
-  Future<String> creaLesson({required String lessonTitle}) async {
+  Future<String> createLesson({required String lessonTitle}) async {
     DocumentReference lessonReference = await FirebaseFirestore.instance
         .collection('lesson')
         .add({'lessonTitle': lessonTitle});
@@ -29,7 +30,6 @@ class FirebaseDataSource {
         .doc(sectionid)
         .delete();
   }
-
 
   Future<void> createSection(
       {required String sublessonTitle,
@@ -73,5 +73,33 @@ class FirebaseDataSource {
             sectionID: doc.id);
       }).toList();
     });
+  }
+
+  Future<void> addUser(
+      {required String name,
+      required String surname,
+      required String email,
+      required String pass}) async {
+    try {
+      final UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: pass);
+      final User? user = userCredential.user;
+      if (user != null) {
+        final userName = '$name $surname';
+        await user.updateDisplayName(userName);
+        await user.reload();
+        await FirebaseFirestore.instance.collection('users').add(
+          {
+            'username': name,
+            'surname': surname,
+            'email': email,
+            'pass': pass,
+            'userID': user.uid
+          },
+        );
+      }
+    } catch (error) {
+      print(error);
+    }
   }
 }

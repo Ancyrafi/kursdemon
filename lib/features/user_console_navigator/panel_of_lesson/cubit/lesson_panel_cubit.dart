@@ -51,7 +51,7 @@ class LessonPanelCubit extends Cubit<LessonPanelState> {
   }
 
   Future<void> createLesson(String lessonTitle) async {
-    _repository.creLesson(lessonTitle: lessonTitle);
+    await _repository.createLesson(lessonTitle: lessonTitle);
   }
 
   Future<void> createSection(

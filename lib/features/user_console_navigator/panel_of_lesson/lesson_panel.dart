@@ -145,6 +145,7 @@ class _LessonPanelState extends State<LessonPanel> {
                                                   .read<LessonPanelCubit>()
                                                   .deleteLesson(
                                                       selectedLessonID!);
+                                              Navigator.of(context).pop();
                                             }
                                           },
                                           child: const Text('Usuń Lekcję'),

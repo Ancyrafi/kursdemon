@@ -80,26 +80,53 @@ class FirebaseDataSource {
       required String surname,
       required String email,
       required String pass}) async {
-    try {
-      final UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: pass);
-      final User? user = userCredential.user;
-      if (user != null) {
-        final userName = '$name $surname';
-        await user.updateDisplayName(userName);
-        await user.reload();
-        await FirebaseFirestore.instance.collection('users').add(
-          {
-            'username': name,
-            'surname': surname,
-            'email': email,
-            'pass': pass,
-            'userID': user.uid
-          },
-        );
+    final UserCredential userCredential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: pass);
+    final User? user = userCredential.user;
+    if (user != null) {
+      final userName = '$name $surname';
+      await user.updateDisplayName(userName);
+      await user.reload();
+      await FirebaseFirestore.instance.collection('users').add(
+        {
+          'username': name,
+          'surname': surname,
+          'email': email,
+          'pass': pass,
+          'userID': user.uid
+        },
+      );
+    }
+  }
+
+  Stream<List<UserList>> getUser() {
+    return FirebaseFirestore.instance
+        .collectionGroup('users')
+        .snapshots()
+        .map((querySnapshot) {
+      return querySnapshot.docs.map((doc) {
+        return UserList(
+            name: doc['username'],
+            surname: doc['surname'],
+            email: doc['email'],
+            pass: doc['pass'],
+            documentID: doc.id,
+            userID: doc['userID']);
+      }).toList();
+    });
+  }
+
+  Future<void> deleteUser(
+      {required String userID, required String documentID}) async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      if (user.uid == userID) {
+        await user.delete();
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(documentID)
+            .delete();
       }
-    } catch (error) {
-      print(error);
     }
   }
 }

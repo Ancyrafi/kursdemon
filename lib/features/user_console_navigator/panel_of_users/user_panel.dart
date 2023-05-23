@@ -24,9 +24,10 @@ class _AddUsersState extends State<AddUsers> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UserPanelCubit(Repository()),
+      create: (context) => UserPanelCubit(Repository())..start(),
       child: BlocBuilder<UserPanelCubit, UserPanelState>(
         builder: (context, state) {
+          final users = state.users;
           if (state.addUser) {
             return Column(children: [
               const Text('Dodawanie Użytkownika'),
@@ -71,11 +72,24 @@ class _AddUsersState extends State<AddUsers> {
                           name.text.isNotEmpty &&
                           password.text.isNotEmpty &&
                           surname.text.isNotEmpty) {
-                        context.read<UserPanelCubit>().addUser(
-                            name: name.text,
-                            surname: surname.text,
-                            email: email.text,
-                            pass: password.text);
+                        try {
+                          context.read<UserPanelCubit>().addUser(
+                              name: name.text,
+                              surname: surname.text,
+                              email: email.text,
+                              pass: password.text);
+                        } catch (error) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                error.toString(),
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              backgroundColor: Colors.black,
+                            ),
+                          );
+                        }
+
                         email.clear();
                         password.clear();
                         name.clear();
@@ -119,21 +133,61 @@ class _AddUsersState extends State<AddUsers> {
               )
             ]);
           }
-          return Column(children: [
-            ElevatedButton(
-              onPressed: () {
-                context.read<UserPanelCubit>().user(true);
-              },
-              child: const Text('Dodaj Użytkownika'),
+          return Container(
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 44, 65, 83),
+              borderRadius: BorderRadius.circular(50),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('Usuń Użytkownika'),
-            ),
-          ]);
+            margin: const EdgeInsets.all(30),
+            padding: const EdgeInsets.all(30),
+            child: ListView(children: [
+              for (final user in users)
+                ExpansionTile(
+                  textColor: Colors.black,
+                  childrenPadding: EdgeInsets.zero,
+                  expandedAlignment: Alignment.center,
+                  expandedCrossAxisAlignment: CrossAxisAlignment.center,
+                  tilePadding: EdgeInsets.zero,
+                  iconColor: Colors.black,
+                  title: Center(
+                    child: Text('${user.name} ${user.surname}'),
+                  ),
+                  children: [
+                    ListTile(
+                      title: Text('E-mail: ${user.email}'),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ListTile(
+                      title: Text('Hasło: ${user.pass}'),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('Usuń'),
+                    ),
+                  ],
+                ),
+              const SizedBox(
+                height: 10,
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: ElevatedButton(
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                  onPressed: () {
+                    context.read<UserPanelCubit>().user(true);
+                  },
+                  child: const Icon(Icons.add),
+                ),
+              ),
+            ]),
+          );
         },
       ),
     );

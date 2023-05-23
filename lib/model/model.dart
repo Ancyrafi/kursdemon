@@ -26,10 +26,12 @@ class UserList {
       required this.surname,
       required this.email,
       required this.pass,
+      required this.documentID,
       required this.userID});
   final String name;
   final String surname;
   final String email;
   final String pass;
   final String userID;
+  final String documentID;
 }

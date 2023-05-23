@@ -17,6 +17,10 @@ class Repository {
         lessonId: lessonId);
   }
 
+  Stream getUser() {
+    return _firebaseDataSource.getUser();
+  }
+
   Stream getLesson() {
     return _firebaseDataSource.getLesson();
   }

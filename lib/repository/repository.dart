@@ -21,6 +21,15 @@ class Repository {
     return _firebaseDataSource.getUser();
   }
 
+  Future<void> deleteUser(
+      {required String userID,
+      required String documentID,
+      required String email,
+      required String pass}) async {
+    await _firebaseDataSource.deleteUser(
+        userID: userID, documentID: documentID, email: email, pass: pass);
+  }
+
   Stream getLesson() {
     return _firebaseDataSource.getLesson();
   }

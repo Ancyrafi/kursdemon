@@ -167,7 +167,25 @@ class _AddUsersState extends State<AddUsers> {
                       height: 10,
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        try {
+                          context.read<UserPanelCubit>().deleteUser(
+                              userID: user.userID,
+                              documentID: user.documentID,
+                              email: user.email,
+                              pass: user.pass);
+                        } catch (error) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Colors.black,
+                              content: Text(
+                                error.toString(),
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          );
+                        }
+                      },
                       child: const Text('Usuń'),
                     ),
                   ],

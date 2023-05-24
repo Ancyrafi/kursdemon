@@ -117,7 +117,12 @@ class FirebaseDataSource {
   }
 
   Future<void> deleteUser(
-      {required String userID, required String documentID}) async {
+      {required String userID,
+      required String documentID,
+      required String email,
+      required String pass}) async {
+    await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: pass);
     final User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       if (user.uid == userID) {
@@ -128,5 +133,15 @@ class FirebaseDataSource {
             .delete();
       }
     }
+
+    // if (user != null) {
+    //   if (user.uid == userID) {
+    //     await user.delete();
+    //     await FirebaseFirestore.instance
+    //         .collection('users')
+    //         .doc(documentID)
+    //         .delete();
+    //   }
+    // }
   }
 }

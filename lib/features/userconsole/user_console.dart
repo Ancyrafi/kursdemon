@@ -22,14 +22,36 @@ class _UserConsoleState extends State<UserConsole> {
       key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Administracja'),
-        actions: <Widget>[
-          IconButton(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
               onPressed: () {
                 _scaffoldKey.currentState!.openDrawer();
               },
-              icon: const Icon(Icons.menu))
-        ],
+              icon: const Icon(Icons.menu),
+            ),
+            const Text('Administracja'),
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(Icons.home))
+          ],
+        ),
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {
+        //       _scaffoldKey.currentState!.openDrawer();
+        //     },
+        //     icon: const Icon(Icons.menu),
+        //   ),
+        //   IconButton(
+        //       onPressed: () {
+        //         Navigator.of(context).pop();
+        //       },
+        //       icon: const Icon(Icons.home))
+        // ],
       ),
       drawer: Drawer(
         child: ListView(

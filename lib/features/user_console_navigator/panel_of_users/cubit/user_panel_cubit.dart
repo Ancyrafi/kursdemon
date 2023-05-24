@@ -34,6 +34,11 @@ class UserPanelCubit extends Cubit<UserPanelState> {
         name: name, surname: surname, email: email, pass: pass);
   }
 
+  Future<void> deleteUser(
+      {required String userID, required String documentID, required String email, required String pass}) async {
+    await _repository.deleteUser(userID: userID, documentID: documentID, email: email, pass: pass);
+  }
+
   @override
   Future<void> close() {
     _streamSubscription?.cancel();

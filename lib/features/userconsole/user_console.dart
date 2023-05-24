@@ -39,19 +39,6 @@ class _UserConsoleState extends State<UserConsole> {
                 icon: const Icon(Icons.home))
           ],
         ),
-        // actions: [
-        //   IconButton(
-        //     onPressed: () {
-        //       _scaffoldKey.currentState!.openDrawer();
-        //     },
-        //     icon: const Icon(Icons.menu),
-        //   ),
-        //   IconButton(
-        //       onPressed: () {
-        //         Navigator.of(context).pop();
-        //       },
-        //       icon: const Icon(Icons.home))
-        // ],
       ),
       drawer: Drawer(
         child: ListView(

@@ -133,15 +133,46 @@ class FirebaseDataSource {
             .delete();
       }
     }
+  }
 
-    // if (user != null) {
-    //   if (user.uid == userID) {
-    //     await user.delete();
-    //     await FirebaseFirestore.instance
-    //         .collection('users')
-    //         .doc(documentID)
-    //         .delete();
-    //   }
-    // }
+  Future<void> socialMedia(
+      {required bool showYouTube,
+      required bool showFacebook,
+      required bool showInstagram,
+      required bool showTwitter,
+      required String youtubeLink,
+      required String twitterLink,
+      required String instagramLink,
+      required String facebookLink}) async {
+    await FirebaseFirestore.instance.collection('socialmedia').add({
+      'showYouTube': showYouTube,
+      'showInstagram': showInstagram,
+      'showFacebook': showFacebook,
+      'showTwitter': showTwitter,
+      'youtube': youtubeLink,
+      'twitter': twitterLink,
+      'facebook': facebookLink,
+      'instagram': instagramLink
+    });
+  }
+
+  Stream<List<SocialMedia>> getSocialMedia() {
+    return FirebaseFirestore.instance
+        .collection('socialmedia')
+        .snapshots()
+        .map((querySnapshot) {
+      return querySnapshot.docs.map((doc) {
+        return SocialMedia(
+            showYouTube: doc['showYouTube'],
+            showFacebook: doc['showFacebook'],
+            showInstagram: doc['showInstagram'],
+            showTwitter: doc['showTwitter'],
+            socialID: doc.id,
+            youtubeLink: doc['youtube'],
+            instagramLink: doc['instagram'],
+            twitterLink: doc['twitter'],
+            facebookLink: doc['facebook']);
+      }).toList();
+    });
   }
 }

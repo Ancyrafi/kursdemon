@@ -78,6 +78,7 @@ class _AddUsersState extends State<AddUsers> {
                               surname: surname.text,
                               email: email.text,
                               pass: password.text);
+                          context.read<UserPanelCubit>().user(false);
                         } catch (error) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -94,7 +95,6 @@ class _AddUsersState extends State<AddUsers> {
                         password.clear();
                         name.clear();
                         surname.clear();
-                        context.read<UserPanelCubit>().user(false);
                       } else {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(

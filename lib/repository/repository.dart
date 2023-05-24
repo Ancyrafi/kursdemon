@@ -56,4 +56,28 @@ class Repository {
     await _firebaseDataSource.addUser(
         name: name, surname: surname, email: email, pass: pass);
   }
+
+  Future<void> socialmedia(
+      {required bool showYouTube,
+      required bool showFacebook,
+      required bool showInstagram,
+      required bool showTwitter,
+      required String youtubeLink,
+      required String twitterLink,
+      required String instagramLink,
+      required String facebookLink}) async {
+    await _firebaseDataSource.socialMedia(
+        showYouTube: showYouTube,
+        showFacebook: showFacebook,
+        showInstagram: showInstagram,
+        showTwitter: showTwitter,
+        youtubeLink: youtubeLink,
+        twitterLink: twitterLink,
+        instagramLink: instagramLink,
+        facebookLink: facebookLink);
+  }
+
+  Stream getSocialMedia() {
+    return _firebaseDataSource.getSocialMedia();
+  }
 }

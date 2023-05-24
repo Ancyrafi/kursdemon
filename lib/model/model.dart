@@ -35,3 +35,25 @@ class UserList {
   final String userID;
   final String documentID;
 }
+
+class SocialMedia {
+  SocialMedia(
+      {required this.showYouTube,
+      required this.showFacebook,
+      required this.showInstagram,
+      required this.showTwitter,
+      required this.socialID,
+      required this.facebookLink,
+      required this.instagramLink,
+      required this.twitterLink,
+      required this.youtubeLink});
+  final bool showYouTube;
+  final bool showFacebook;
+  final bool showInstagram;
+  final bool showTwitter;
+  final String socialID;
+  final String youtubeLink;
+  final String twitterLink;
+  final String instagramLink;
+  final String facebookLink;
+}

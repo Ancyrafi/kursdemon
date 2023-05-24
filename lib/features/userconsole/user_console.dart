@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../user_console_navigator/panel_of_lesson/lesson_panel.dart';
+import '../user_console_navigator/panel_of_social/panel_of_social.dart';
 import '../user_console_navigator/panel_of_users/user_panel.dart';
 
 class UserConsole extends StatefulWidget {
@@ -115,11 +116,10 @@ class _UserConsoleState extends State<UserConsole> {
         ]);
       case 4:
         // Social Media
-        return const Column(children: [
-          Text('Dodawanie SocialMedia'),
-        ]);
+        return const PanelSocialMedia();
       default:
         return const Center(child: CircularProgressIndicator());
     }
   }
 }
+

@@ -16,31 +16,44 @@ class SocialMedia extends StatelessWidget {
       child: BlocBuilder<SocialCubitCubit, SocialCubitState>(
         builder: (context, state) {
           final socials = state.socialmedia;
-          return Row(
-            children: [
-              for (final oneSocial in socials)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    if (oneSocial.showFacebook == true)
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(FontAwesome.facebook)),
-                    if (oneSocial.showInstagram == true)
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(FontAwesome.instagram)),
-                    if (oneSocial.showTwitter == true)
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(FontAwesome.twitter)),
-                    if (oneSocial.showYouTube == true)
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(FontAwesome.youtube))
-                  ],
-                )
-            ],
+          return Card(
+            shadowColor: Colors.black,
+            margin: const EdgeInsets.all(10),
+            child: Row(
+              children: [
+                for (final oneSocial in socials)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (oneSocial.showFacebook == true)
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(FontAwesome.facebook)),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      if (oneSocial.showInstagram == true)
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(FontAwesome.instagram)),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      if (oneSocial.showTwitter == true)
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(FontAwesome.twitter)),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      if (oneSocial.showYouTube == true)
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(FontAwesome.youtube))
+                    ],
+                  )
+              ],
+            ),
           );
         },
       ),

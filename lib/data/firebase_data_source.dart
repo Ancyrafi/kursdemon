@@ -143,7 +143,8 @@ class FirebaseDataSource {
       required String youtubeLink,
       required String twitterLink,
       required String instagramLink,
-      required String facebookLink}) async {
+      required String facebookLink,
+      required bool createSocial}) async {
     await FirebaseFirestore.instance.collection('socialmedia').add({
       'showYouTube': showYouTube,
       'showInstagram': showInstagram,
@@ -152,7 +153,8 @@ class FirebaseDataSource {
       'youtube': youtubeLink,
       'twitter': twitterLink,
       'facebook': facebookLink,
-      'instagram': instagramLink
+      'instagram': instagramLink,
+      'createSocial' : createSocial
     });
   }
 
@@ -171,7 +173,8 @@ class FirebaseDataSource {
             youtubeLink: doc['youtube'],
             instagramLink: doc['instagram'],
             twitterLink: doc['twitter'],
-            facebookLink: doc['facebook']);
+            facebookLink: doc['facebook'],
+            createSocial: doc['createSocial']);
       }).toList();
     });
   }

@@ -46,7 +46,8 @@ class SocialMedia {
       required this.facebookLink,
       required this.instagramLink,
       required this.twitterLink,
-      required this.youtubeLink});
+      required this.youtubeLink,
+      required this.createSocial});
   final bool showYouTube;
   final bool showFacebook;
   final bool showInstagram;
@@ -56,4 +57,5 @@ class SocialMedia {
   final String twitterLink;
   final String instagramLink;
   final String facebookLink;
+  final bool createSocial;
 }

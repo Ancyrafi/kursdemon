@@ -59,6 +59,7 @@ class Repository {
 
   Future<void> socialmedia(
       {required bool showYouTube,
+      required bool createSocial,
       required bool showFacebook,
       required bool showInstagram,
       required bool showTwitter,
@@ -74,7 +75,8 @@ class Repository {
         youtubeLink: youtubeLink,
         twitterLink: twitterLink,
         instagramLink: instagramLink,
-        facebookLink: facebookLink);
+        facebookLink: facebookLink,
+        createSocial: createSocial);
   }
 
   Stream getSocialMedia() {

@@ -78,7 +78,13 @@ class PanelSocialMedia extends StatelessWidget {
                                   ),
                                   Switch(
                                       value: oneSocial.showFacebook,
-                                      onChanged: (value) {})
+                                      onChanged: (value) {
+                                        context
+                                            .read<PanelSocialCubit>()
+                                            .showFacebok(
+                                                showFB: value,
+                                                socialID: oneSocial.socialID);
+                                      })
                                 ],
                               ),
                             ],
@@ -116,8 +122,14 @@ class PanelSocialMedia extends StatelessWidget {
                                     child: const Text('Zapisz'),
                                   ),
                                   Switch(
-                                      value: oneSocial.showFacebook,
-                                      onChanged: (value) {})
+                                      value: oneSocial.showInstagram,
+                                      onChanged: (value) {
+                                        context
+                                            .read<PanelSocialCubit>()
+                                            .showInstagram(
+                                                showInsta: value,
+                                                socialID: oneSocial.socialID);
+                                      })
                                 ],
                               ),
                             ],
@@ -154,8 +166,14 @@ class PanelSocialMedia extends StatelessWidget {
                                     child: const Text('Zapisz'),
                                   ),
                                   Switch(
-                                      value: oneSocial.showFacebook,
-                                      onChanged: (value) {})
+                                      value: oneSocial.showYouTube,
+                                      onChanged: (value) {
+                                        context
+                                            .read<PanelSocialCubit>()
+                                            .showYouTube(
+                                                showYT: value,
+                                                socialID: oneSocial.socialID);
+                                      })
                                 ],
                               ),
                             ],
@@ -192,8 +210,14 @@ class PanelSocialMedia extends StatelessWidget {
                                     child: const Text('Zapisz'),
                                   ),
                                   Switch(
-                                      value: oneSocial.showFacebook,
-                                      onChanged: (value) {})
+                                      value: oneSocial.showTwitter,
+                                      onChanged: (value) {
+                                        context
+                                            .read<PanelSocialCubit>()
+                                            .showTwitter(
+                                                showTwit: value,
+                                                socialID: oneSocial.socialID);
+                                      })
                                 ],
                               ),
                             ],

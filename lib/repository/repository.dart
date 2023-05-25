@@ -82,4 +82,47 @@ class Repository {
   Stream getSocialMedia() {
     return _firebaseDataSource.getSocialMedia();
   }
+
+  Future<void> showYoutube(
+      {required bool showYT, required String socialID}) async {
+    await _firebaseDataSource.showYT(showYT: showYT, socialID: socialID);
+  }
+
+  Future<void> showInstagram(
+      {required bool showINST, required String socialID}) async {
+    await _firebaseDataSource.showInsta(
+        showInsta: showINST, socialID: socialID);
+  }
+
+  Future<void> showTwitter(
+      {required bool showTwitter, required String socialID}) async {
+    await _firebaseDataSource.showTt(showTt: showTwitter, socialID: socialID);
+  }
+
+  Future<void> showFacebook(
+      {required bool showFB, required String socialID}) async {
+    await _firebaseDataSource.showFB(showfB: showFB, socialID: socialID);
+  }
+
+  Future<void> youtubeLinkSet(
+      {required String youtubeLink, required String sociaID}) async {
+    await _firebaseDataSource.linkYT(linkYt: youtubeLink, socialID: sociaID);
+  }
+
+  Future<void> instaLinkSet(
+      {required String instaLink, required String sociaID}) async {
+    await _firebaseDataSource.linkInsta(
+        linkInsta: instaLink, socialID: sociaID);
+  }
+
+  Future<void> twitterLinkSet(
+      {required String twitterLink, required String sociaID}) async {
+    await _firebaseDataSource.linkTwitter(
+        linkTwitter: twitterLink, socialID: sociaID);
+  }
+
+  Future<void> facebookLinkSet(
+      {required String facebokLink, required String sociaID}) async {
+    await _firebaseDataSource.linkFB(linkFB: facebokLink, socialID: sociaID);
+  }
 }

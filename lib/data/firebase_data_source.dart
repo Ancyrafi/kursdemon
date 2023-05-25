@@ -6,6 +6,7 @@ import 'package:kursdemo/model/model.dart';
 final userID = FirebaseAuth.instance.currentUser?.uid;
 
 class FirebaseDataSource {
+  // tworzenie lekcji
   Future<String> createLesson({required String lessonTitle}) async {
     DocumentReference lessonReference = await FirebaseFirestore.instance
         .collection('lesson')
@@ -43,6 +44,7 @@ class FirebaseDataSource {
         .add({'sublessonTitle': sublessonTitle, 'videoLink': videoLink});
   }
 
+  // pobranie lekcji
   Stream<List<Lesson>> getLesson() {
     return FirebaseFirestore.instance
         .collection('lesson')
@@ -75,6 +77,8 @@ class FirebaseDataSource {
     });
   }
 
+// KONIEC POBIERANIA I TWORZENIA SEKCJI I LEKCJI
+// POBIERANIE UZYTKOWNIKA < DODAWANIE I USUWANIE
   Future<void> addUser(
       {required String name,
       required String surname,
@@ -135,6 +139,7 @@ class FirebaseDataSource {
     }
   }
 
+// ZACZYANMY SOCIAL MEDIA USTAWIEIA I LINKI
   Future<void> socialMedia(
       {required bool showYouTube,
       required bool showFacebook,
@@ -154,7 +159,7 @@ class FirebaseDataSource {
       'twitter': twitterLink,
       'facebook': facebookLink,
       'instagram': instagramLink,
-      'createSocial' : createSocial
+      'createSocial': createSocial
     });
   }
 
@@ -177,5 +182,66 @@ class FirebaseDataSource {
             createSocial: doc['createSocial']);
       }).toList();
     });
+  }
+
+  Future<void> showYT({required bool showYT, required String socialID}) async {
+    await FirebaseFirestore.instance
+        .collection('socialmedia')
+        .doc(socialID)
+        .update({'showYouTube': showYT});
+  }
+
+  Future<void> showFB({required bool showfB, required String socialID}) async {
+    await FirebaseFirestore.instance
+        .collection('socialmedia')
+        .doc(socialID)
+        .update({'showFacebook': showfB});
+  }
+
+  Future<void> showInsta(
+      {required bool showInsta, required String socialID}) async {
+    await FirebaseFirestore.instance
+        .collection('socialmedia')
+        .doc(socialID)
+        .update({'showInstagram': showInsta});
+  }
+
+  Future<void> showTt({required bool showTt, required String socialID}) async {
+    await FirebaseFirestore.instance
+        .collection('socialmedia')
+        .doc(socialID)
+        .update({'showTwitter': showTt});
+  }
+
+  Future<void> linkYT(
+      {required String linkYt, required String socialID}) async {
+    await FirebaseFirestore.instance
+        .collection('socialmedia')
+        .doc(socialID)
+        .update({'youtube': linkYt});
+  }
+
+  Future<void> linkInsta(
+      {required String linkInsta, required String socialID}) async {
+    await FirebaseFirestore.instance
+        .collection('socialmedia')
+        .doc(socialID)
+        .update({'instagram': linkInsta});
+  }
+
+  Future<void> linkTwitter(
+      {required String linkTwitter, required String socialID}) async {
+    await FirebaseFirestore.instance
+        .collection('socialmedia')
+        .doc(socialID)
+        .update({'twitter': linkTwitter});
+  }
+
+  Future<void> linkFB(
+      {required String linkFB, required String socialID}) async {
+    await FirebaseFirestore.instance
+        .collection('socialmedia')
+        .doc(socialID)
+        .update({'facebook': linkFB});
   }
 }

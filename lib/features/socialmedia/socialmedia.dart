@@ -27,28 +27,44 @@ class SocialMedia extends StatelessWidget {
                     children: [
                       if (oneSocial.showFacebook == true)
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              context
+                                  .read<SocialCubitCubit>()
+                                  .gotoSocialMedia(oneSocial.facebookLink);
+                            },
                             icon: const Icon(FontAwesome.facebook)),
                       const SizedBox(
                         height: 20,
                       ),
                       if (oneSocial.showInstagram == true)
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              context
+                                  .read<SocialCubitCubit>()
+                                  .gotoSocialMedia(oneSocial.instagramLink);
+                            },
                             icon: const Icon(FontAwesome.instagram)),
                       const SizedBox(
                         height: 20,
                       ),
                       if (oneSocial.showTwitter == true)
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              context
+                                  .read<SocialCubitCubit>()
+                                  .gotoSocialMedia(oneSocial.twitterLink);
+                            },
                             icon: const Icon(FontAwesome.twitter)),
                       const SizedBox(
                         height: 20,
                       ),
                       if (oneSocial.showYouTube == true)
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              context
+                                  .read<SocialCubitCubit>()
+                                  .gotoSocialMedia(oneSocial.youtubeLink);
+                            },
                             icon: const Icon(FontAwesome.youtube))
                     ],
                   )

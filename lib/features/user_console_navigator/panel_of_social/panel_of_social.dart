@@ -17,6 +17,10 @@ class PanelSocialMedia extends StatelessWidget {
       child: BlocBuilder<PanelSocialCubit, PanelSocialState>(
         builder: (context, state) {
           final social = state.socialmedia;
+          final linkYt = TextEditingController();
+          final linkFb = TextEditingController();
+          final linkInsta = TextEditingController();
+          final linkTt = TextEditingController();
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -64,6 +68,7 @@ class PanelSocialMedia extends StatelessWidget {
                                   SizedBox(
                                     width: 300,
                                     child: TextField(
+                                      controller: linkFb,
                                       decoration: InputDecoration(
                                           hintText: oneSocial.facebookLink,
                                           border: OutlineInputBorder(
@@ -73,7 +78,21 @@ class PanelSocialMedia extends StatelessWidget {
                                     ),
                                   ),
                                   ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      if (linkFb.text.isNotEmpty) {
+                                        context
+                                            .read<PanelSocialCubit>()
+                                            .facebookLink(
+                                                link: linkFb.text,
+                                                socialID: oneSocial.socialID);
+                                        linkFb.clear();
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text(
+                                                    'Musisz wypełnić to pole')));
+                                      }
+                                    },
                                     child: const Text('Zapisz'),
                                   ),
                                   Switch(
@@ -109,6 +128,7 @@ class PanelSocialMedia extends StatelessWidget {
                                   SizedBox(
                                     width: 300,
                                     child: TextField(
+                                      controller: linkInsta,
                                       decoration: InputDecoration(
                                           hintText: oneSocial.instagramLink,
                                           border: OutlineInputBorder(
@@ -118,7 +138,21 @@ class PanelSocialMedia extends StatelessWidget {
                                     ),
                                   ),
                                   ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      if (linkInsta.text.isNotEmpty) {
+                                        context
+                                            .read<PanelSocialCubit>()
+                                            .instagramLink(
+                                                link: linkInsta.text,
+                                                socialID: oneSocial.socialID);
+                                        linkInsta.clear();
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text(
+                                                    'Musisz wypełnić to pole')));
+                                      }
+                                    },
                                     child: const Text('Zapisz'),
                                   ),
                                   Switch(
@@ -153,6 +187,7 @@ class PanelSocialMedia extends StatelessWidget {
                                   SizedBox(
                                     width: 300,
                                     child: TextField(
+                                      controller: linkYt,
                                       decoration: InputDecoration(
                                           hintText: oneSocial.youtubeLink,
                                           border: OutlineInputBorder(
@@ -162,7 +197,21 @@ class PanelSocialMedia extends StatelessWidget {
                                     ),
                                   ),
                                   ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      if (linkYt.text.isNotEmpty) {
+                                        context
+                                            .read<PanelSocialCubit>()
+                                            .youtubeLink(
+                                                link: linkYt.text,
+                                                socialID: oneSocial.socialID);
+                                        linkYt.clear();
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text(
+                                                    'Musisz wypełnić to pole')));
+                                      }
+                                    },
                                     child: const Text('Zapisz'),
                                   ),
                                   Switch(
@@ -197,6 +246,7 @@ class PanelSocialMedia extends StatelessWidget {
                                   SizedBox(
                                     width: 300,
                                     child: TextField(
+                                      controller: linkTt,
                                       decoration: InputDecoration(
                                           hintText: oneSocial.facebookLink,
                                           border: OutlineInputBorder(
@@ -206,7 +256,21 @@ class PanelSocialMedia extends StatelessWidget {
                                     ),
                                   ),
                                   ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      if (linkTt.text.isNotEmpty) {
+                                        context
+                                            .read<PanelSocialCubit>()
+                                            .twitterLink(
+                                                link: linkTt.text,
+                                                socialID: oneSocial.socialID);
+                                        linkTt.clear();
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text(
+                                                    'Musisz wypełnić to pole')));
+                                      }
+                                    },
                                     child: const Text('Zapisz'),
                                   ),
                                   Switch(

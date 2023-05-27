@@ -4,7 +4,6 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   firebase_core
-  pasteboard
   url_launcher_windows
 )
 

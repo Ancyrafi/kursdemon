@@ -9,12 +9,15 @@ class TitlePageContainer extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-          color: Colors.black, borderRadius: BorderRadius.circular(10.0)),
-      child: Center(child: Text(title)),
+    return Card(
+      margin: const EdgeInsets.all(20),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+            color: Colors.black, borderRadius: BorderRadius.circular(10.0)),
+        child: Center(child: Text(title)),
+      ),
     );
   }
 }

@@ -59,3 +59,10 @@ class SocialMedia {
   final String facebookLink;
   final bool createSocial;
 }
+
+class Blog {
+  Blog({required this.title, required this.blogText, required this.blogID});
+  final String title;
+  final String blogText;
+  final String blogID;
+}

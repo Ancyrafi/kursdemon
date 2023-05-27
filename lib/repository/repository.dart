@@ -125,4 +125,24 @@ class Repository {
       {required String facebokLink, required String sociaID}) async {
     await _firebaseDataSource.linkFB(linkFB: facebokLink, socialID: sociaID);
   }
+
+  // kod odpowiedzialny za bloga
+  Future<void> addBlog(
+      {required String blogText, required String title}) async {
+    await _firebaseDataSource.addBlogSequence(
+        addBlog: blogText, blogTitle: title);
+  }
+
+  Future<void> deleteBlogSection({required String blogID}) async {
+    await _firebaseDataSource.deleteBlogSequence(blogID: blogID);
+  }
+
+  Future<void> editBlogText({required String blogText, required String blogID}) async {
+    await _firebaseDataSource.editBlogSequence(
+        blogText: blogText, blogID: blogID);
+  }
+
+  Stream blogContent() {
+    return _firebaseDataSource.getBlogText();
+  }
 }

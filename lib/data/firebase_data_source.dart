@@ -244,4 +244,37 @@ class FirebaseDataSource {
         .doc(socialID)
         .update({'facebook': linkFB});
   }
+
+  // koniec ustawien social mediow
+  // ustawienia bloga
+  Future<void> addBlogSequence(
+      {required String? addBlog, required String blogTitle}) async {
+    await FirebaseFirestore.instance
+        .collection('blog')
+        .add({'blogSection': addBlog, 'title': blogTitle});
+  }
+
+  Future<void> deleteBlogSequence({required String blogID}) async {
+    await FirebaseFirestore.instance.collection('blog').doc(blogID).delete();
+  }
+
+  Future<void> editBlogSequence(
+      {required String? blogText, required String blogID}) async {
+    await FirebaseFirestore.instance
+        .collection('blog')
+        .doc(blogID)
+        .update({'blogSection': blogText});
+  }
+
+  Stream<List<Blog>> getBlogText() {
+    return FirebaseFirestore.instance
+        .collectionGroup('blog')
+        .snapshots()
+        .map((querySnapshot) {
+      return querySnapshot.docs.map((doc) {
+        return Blog(
+            title: doc['title'], blogText: doc['blogSection'], blogID: doc.id);
+      }).toList();
+    });
+  }
 }

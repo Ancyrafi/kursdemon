@@ -83,6 +83,7 @@ class SectionPanel extends StatelessWidget {
                       onPressed: () {
                         context.read<PanelSectionsCubit>().deleteSections(
                             sectionID: sectionID, lessonID: lessonID);
+                        Navigator.of(context).pop();
                       },
                       child: const Text('Usuń sekcję'),
                     ),

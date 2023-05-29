@@ -6,4 +6,11 @@ class MyBlogState {
   bool addBlog;
   bool editBlog;
   final List<Blog> blogText;
+
+  MyBlogState copyWith({bool? addBlog, bool? editBlog, List<Blog>? blogText}) {
+    return MyBlogState(
+        addBlog: addBlog ?? this.addBlog,
+        editBlog: editBlog ?? this.editBlog,
+        blogText: blogText ?? this.blogText);
+  }
 }

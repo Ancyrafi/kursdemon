@@ -43,4 +43,16 @@ class MyBlogCubit extends Cubit<MyBlogState> {
     _streamSubscription?.cancel();
     return super.close();
   }
+
+  Future<void> changetoAdd() async {
+    emit(state.copyWith(addBlog: true));
+  }
+
+  Future<void> changetoEdit() async {
+    emit(state.copyWith(editBlog: true));
+  }
+
+  Future<void> exit() async {
+    emit(state.copyWith(addBlog: false, editBlog: false));
+  }
 }

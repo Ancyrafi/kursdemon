@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:kursdemo/features/userconsole/user_console.dart';
 
+import '../blog/myblog.dart';
 import '../list_lesson/list_lesson.dart';
 import '../socialmedia/socialmedia.dart';
 
@@ -41,12 +42,7 @@ class HomePage extends StatelessWidget {
                 child: ListLesson(),
               ),
               Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text('Mój Blog'),
-                  ],
-                ),
+                child: MyBlog(),
               ),
               Align(
                 alignment: Alignment.bottomRight,
@@ -57,3 +53,5 @@ class HomePage extends StatelessWidget {
         ));
   }
 }
+
+

@@ -26,6 +26,9 @@ dependencies:
   flutter_vector_icons: ^2.0.0
   url_launcher: ^6.1.11
   quill_html_editor: ^2.1.9
+  flutter_widget_from_html_core: ^0.10.1
+
+
 
   
 

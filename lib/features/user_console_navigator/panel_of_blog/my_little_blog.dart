@@ -20,6 +20,18 @@ class MyBlog extends StatelessWidget {
       child: BlocBuilder<MyBlogCubit, MyBlogState>(
         builder: (context, state) {
           final blog = state.blogText;
+          final toolbarconfig = [
+            ToolBarStyle.bold,
+            ToolBarStyle.italic,
+            ToolBarStyle.image,
+            ToolBarStyle.color,
+            ToolBarStyle.underline,
+            ToolBarStyle.background,
+            ToolBarStyle.strike,
+            ToolBarStyle.undo,
+            ToolBarStyle.redo,
+            ToolBarStyle.clean,
+          ];
           if (state.addBlog == true) {
             return Card(
               margin: const EdgeInsets.all(30),
@@ -38,17 +50,18 @@ class MyBlog extends StatelessWidget {
                     ToolBar(
                       controller: controller,
                       toolBarColor: Colors.blue,
+                      toolBarConfig: toolbarconfig,
                     ),
                     SingleChildScrollView(
                       child: SizedBox(
-                        height: 700,
+                        height: 300,
                         child: QuillHtmlEditor(
                           onEditorResized: (height) => 2,
                           hintTextPadding: const EdgeInsets.all(20),
                           isEnabled: true,
                           backgroundColor: Colors.grey,
                           controller: controller,
-                          minHeight: 100,
+                          minHeight: 400,
                           hintText: 'Zacznij tworzyć swój wpis',
                         ),
                       ),
@@ -87,7 +100,12 @@ class MyBlog extends StatelessWidget {
                           child: const Text('Edytuj'),
                         ),
                         ElevatedButton(
-                            onPressed: () {}, child: const Text('Usuń'))
+                            onPressed: () {
+                              context
+                                  .read<MyBlogCubit>()
+                                  .deleteBlog(blogID: oneBlog.blogID);
+                            },
+                            child: const Text('Usuń'))
                       ],
                     )
                   ],

@@ -4,7 +4,6 @@ import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart
 import 'package:kursdemo/features/blog/cubit/blog_cubit.dart';
 import 'package:kursdemo/repository/repository.dart';
 
-
 class MyBlog extends StatelessWidget {
   const MyBlog({
     super.key,
@@ -20,24 +19,31 @@ class MyBlog extends StatelessWidget {
 
           return ListView(
             children: [
-              const Text('Mój Blog'),
               for (final oneBlog in blog)
                 Card(
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.all(10),
-                    child: HtmlWidget(
-                      oneBlog.blogText,
-                      customStylesBuilder: (element) {
-                        if (element.classes.contains('foo')) {
-                          return {'color': 'red'};
-                        }
-
-                        return null;
-                      },
-                      textStyle: const TextStyle(fontSize: 20),
-                      renderMode: RenderMode.column,
-                    ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  color: const Color.fromARGB(255, 46, 58, 85),
+                  shadowColor: const Color.fromARGB(255, 28, 32, 48),
+                  margin: const EdgeInsets.all(30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                        child: HtmlWidget(
+                          oneBlog.blogText,
+                          customStylesBuilder: (element) {
+                            if (element.classes.contains('foo')) {
+                              return {'color': 'red'};
+                            }
+                                      
+                            return null;
+                          },
+                          textStyle: const TextStyle(fontSize: 20),
+                          renderMode: RenderMode.column,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
             ],

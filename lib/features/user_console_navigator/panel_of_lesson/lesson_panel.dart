@@ -175,6 +175,7 @@ class _LessonPanelState extends State<LessonPanel> {
                     height: 10,
                   ),
                   BuildTextField(
+                      enabled: true,
                       hideText: false,
                       hintText: 'Podaj tytuł sekcji dla twojej lekcji',
                       controller: sectionTitle),
@@ -182,6 +183,7 @@ class _LessonPanelState extends State<LessonPanel> {
                     height: 10,
                   ),
                   BuildTextField(
+                      enabled: true,
                       hideText: false,
                       hintText: 'Wklej link do twojego filmu',
                       controller: videoLink),
@@ -217,6 +219,7 @@ class _LessonPanelState extends State<LessonPanel> {
               height: 10,
             ),
             BuildTextField(
+                enabled: true,
                 hideText: false,
                 hintText: 'Podaj tytuł twojej lekcji',
                 controller: lessonTitle),

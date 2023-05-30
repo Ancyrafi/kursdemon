@@ -35,6 +35,7 @@ class _AddUsersState extends State<AddUsers> {
                 height: 10,
               ),
               BuildTextField(
+                  enabled: true,
                   hideText: false,
                   hintText: 'Podaj imię swojego kursanta',
                   controller: name),
@@ -42,6 +43,7 @@ class _AddUsersState extends State<AddUsers> {
                 height: 10,
               ),
               BuildTextField(
+                  enabled: true,
                   hideText: false,
                   hintText: 'Podaj nazwisko swojego kursanta',
                   controller: surname),
@@ -49,6 +51,7 @@ class _AddUsersState extends State<AddUsers> {
                 height: 10,
               ),
               BuildTextField(
+                enabled: true,
                 hintText: 'Podaj E-mail Użytkownika',
                 controller: email,
                 hideText: false,
@@ -57,6 +60,7 @@ class _AddUsersState extends State<AddUsers> {
                 height: 10,
               ),
               BuildTextField(
+                  enabled: true,
                   hideText: false,
                   hintText: 'Tymczasowe hasło dla użytkownika',
                   controller: password),

@@ -4,8 +4,10 @@ class BuildTextField extends StatefulWidget {
   final String hintText;
   final TextEditingController controller;
   final bool hideText;
+  final bool enabled;
 
   const BuildTextField({
+    required this.enabled,
     required this.hideText,
     required this.hintText,
     required this.controller,
@@ -22,6 +24,7 @@ class _BuildTextFieldState extends State<BuildTextField> {
     return SizedBox(
       width: 500,
       child: TextField(
+        enabled: widget.enabled,
         obscureText: widget.hideText,
         controller: widget.controller,
         decoration: InputDecoration(

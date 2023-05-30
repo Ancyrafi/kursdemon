@@ -248,7 +248,7 @@ class PanelSocialMedia extends StatelessWidget {
                                     child: TextField(
                                       controller: linkTt,
                                       decoration: InputDecoration(
-                                          hintText: oneSocial.facebookLink,
+                                          hintText: oneSocial.twitterLink,
                                           border: OutlineInputBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10),

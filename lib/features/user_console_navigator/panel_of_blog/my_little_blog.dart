@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:kursdemo/features/user_console_navigator/panel_of_blog/cubit/my_blog_cubit.dart';
+import 'package:kursdemo/features/user_console_navigator/panel_of_blog/edit_view.blog.dart';
 import 'package:kursdemo/repository/repository.dart';
 import 'package:kursdemo/widgets/build_text_field.dart';
 
@@ -96,77 +97,7 @@ class MyBlog extends StatelessWidget {
               ),
             );
           }
-          if (state.editBlog == true) {
-            return Card(
-              margin: const EdgeInsets.all(30),
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                margin: const EdgeInsets.all(10),
-                child: ListView(
-                  children: [
-                    for (final oneBlog in blog)
-                      Column(
-                        children: [
-                          BuildTextField(
-                              enabled: false,
-                              hideText: false,
-                              hintText: oneBlog.title,
-                              controller: titleController),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          ToolBar(
-                            controller: controller,
-                            toolBarColor: Colors.blue,
-                            toolBarConfig: toolbarconfig,
-                          ),
-                          SingleChildScrollView(
-                            child: SizedBox(
-                              height: 300,
-                              child: QuillHtmlEditor(
-                                text: oneBlog.blogText,
-                                onEditorResized: (height) => 2,
-                                hintTextPadding: const EdgeInsets.all(20),
-                                isEnabled: true,
-                                backgroundColor: Colors.grey,
-                                controller: controller,
-                                minHeight: 400,
-                                hintText: 'Zacznij tworzyć swój wpis',
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              ElevatedButton(
-                                  onPressed: () async {
-                                    context.read<MyBlogCubit>().editBlog(
-                                          blogID: oneBlog.blogID,
-                                          blogText: await controller.getText(),
-                                        );
-                                    controller.clear();
-                                    titleController.clear();
-                                    context.read<MyBlogCubit>().exit();
-                                  },
-                                  child: const Text('Zapisz')),
-                              IconButton(
-                                  onPressed: () {
-                                    context.read<MyBlogCubit>().exit();
-                                  },
-                                  icon:
-                                      const Icon(FontAwesome.arrow_circle_left))
-                            ],
-                          )
-                        ],
-                      ),
-                  ],
-                ),
-              ),
-            );
-          }
+
           return ListView(
             children: [
               for (final oneBlog in blog)
@@ -178,7 +109,11 @@ class MyBlog extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            context.read<MyBlogCubit>().changetoEdit();
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => EditBlogContent(
+                                    blogID: oneBlog.blogID,
+                                    blogText: oneBlog.blogText,
+                                    title: oneBlog.title)));
                           },
                           child: const Text('Edytuj'),
                         ),

@@ -22,12 +22,12 @@ class MyBlog extends StatelessWidget {
               for (final oneBlog in blog)
                 Card(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
+                      borderRadius: BorderRadius.circular(10)),
                   color: const Color.fromARGB(255, 46, 58, 85),
                   shadowColor: const Color.fromARGB(255, 28, 32, 48),
                   margin: const EdgeInsets.all(30),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
                         child: HtmlWidget(
@@ -36,7 +36,7 @@ class MyBlog extends StatelessWidget {
                             if (element.classes.contains('foo')) {
                               return {'color': 'red'};
                             }
-                                      
+
                             return null;
                           },
                           textStyle: const TextStyle(fontSize: 20),

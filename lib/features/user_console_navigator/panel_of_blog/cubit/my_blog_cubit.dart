@@ -48,10 +48,6 @@ class MyBlogCubit extends Cubit<MyBlogState> {
     emit(state.copyWith(addBlog: true));
   }
 
-  Future<void> changetoEdit() async {
-    emit(state.copyWith(editBlog: true));
-  }
-
   Future<void> exit() async {
     emit(state.copyWith(addBlog: false, editBlog: false));
   }

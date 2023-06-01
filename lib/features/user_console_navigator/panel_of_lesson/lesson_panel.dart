@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+
 import 'package:kursdemo/features/user_console_navigator/panel_of_lesson/cubit/lesson_panel_cubit.dart';
 import 'package:kursdemo/features/user_console_navigator/panel_of_sections/sections.dart';
 import 'package:kursdemo/repository/repository.dart';
@@ -24,6 +24,7 @@ class _LessonPanelState extends State<LessonPanel> {
   final sectionTitle = TextEditingController();
 
   final videoLink = TextEditingController();
+  final googleLink = TextEditingController();
   String? selectedLessonID;
 
   @override
@@ -32,8 +33,6 @@ class _LessonPanelState extends State<LessonPanel> {
       create: (context) => LessonPanelCubit(Repository())..start(),
       child: BlocBuilder<LessonPanelCubit, LessonPanelState>(
         builder: (context, state) {
-          bool fromYouTube = false;
-          bool fromGoogleDrive = false;
           if (state.addLesson == false && state.addSection == false) {
             final oneLesson = state.lesson;
             return Container(
@@ -186,58 +185,24 @@ class _LessonPanelState extends State<LessonPanel> {
                   const SizedBox(
                     height: 10,
                   ),
-                  if (fromYouTube == true) 
-                    BuildTextField(
-                        enabled: true,
-                        hideText: false,
-                        hintText: 'Wklej link do twojego filmu z YouTube',
-                        controller: videoLink),
-                  if (fromGoogleDrive == true)
-                    BuildTextField(
-                        enabled: true,
-                        hideText: false,
-                        hintText: 'Wklej link do twojego filmu z Google Drive',
-                        controller: videoLink),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        if (fromYouTube == false) {
-                          setState(() {
-                            fromYouTube = true;
-                            fromGoogleDrive = false;
-                          });
-                        } else {
-                          setState(() {
-                            fromYouTube = false;
-                            fromGoogleDrive = false;
-                          });
-                        }
-                      },
-                      icon: const Icon(FontAwesome.youtube)),
-                  IconButton(
-                      onPressed: () {
-                        if (fromGoogleDrive == false) {
-                          setState(() {
-                            fromYouTube = false;
-                            fromGoogleDrive = true;
-                          });
-                        } else {
-                          setState(() {
-                            fromYouTube = false;
-                            fromGoogleDrive = false;
-                          });
-                        }
-                      },
-                      icon: const Icon(FontAwesome.google_plus)),
+                  BuildTextField(
+                      enabled: true,
+                      hideText: false,
+                      hintText: 'Wklej link do twojego filmu z YouTube',
+                      controller: videoLink),
+                  BuildTextField(
+                      enabled: true,
+                      hideText: false,
+                      hintText: 'Wklej link do twojego filmu z Dysku Google',
+                      controller: googleLink),
                   const SizedBox(
                     height: 10,
                   ),
                   ElevatedButton(
-                      onPressed: () {
-                        if (sectionTitle.text.isNotEmpty &&
-                            videoLink.text.isNotEmpty) {
+                    onPressed: () {
+                      if (sectionTitle.text.isNotEmpty) {
+                        if (videoLink.text.isNotEmpty &&
+                            googleLink.text.isEmpty) {
                           String embedLink = convertEmbed(videoLink.text);
                           context.read<LessonPanelCubit>().createSection(
                               lessonID: state.lessonID,
@@ -245,16 +210,41 @@ class _LessonPanelState extends State<LessonPanel> {
                               videoLink: embedLink);
                           sectionTitle.clear();
                           videoLink.clear();
-                          context.read<LessonPanelCubit>().exit();
+                          Navigator.of(context).pop();
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Musisz wypełnić wszystkie pola!'),
-                            ),
-                          );
+                          if (videoLink.text.isNotEmpty &&
+                              googleLink.text.isNotEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                    'Podaj tylko jeden link, albo youtube albo do dysku google!'),
+                              ),
+                            );
+                          } else {
+                            if (videoLink.text.isEmpty &&
+                                googleLink.text.isNotEmpty) {
+                              String googleEmbed =
+                                  convertEmbedfromGoogle(googleLink.text);
+                              context.read<LessonPanelCubit>().createSection(
+                                  lessonID: state.lessonID,
+                                  sublessonTitle: sectionTitle.text,
+                                  videoLink: googleEmbed);
+                              googleLink.clear();
+                              sectionTitle.clear();
+                              Navigator.of(context).pop();
+                            }
+                          }
                         }
-                      },
-                      child: const Text('Dodaj Sekcję'))
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Musisz wypełnić wszystkie pola!'),
+                          ),
+                        );
+                      }
+                    },
+                    child: const Text('Dodaj Sekcję'),
+                  ),
                 ]);
           }
           // Dodawanie Lekcji

@@ -238,7 +238,8 @@ class _LessonPanelState extends State<LessonPanel> {
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Musisz wypełnić wszystkie pola!'),
+                            content:
+                                Text('Pole z tytułem sekcji jest wymagane'),
                           ),
                         );
                       }

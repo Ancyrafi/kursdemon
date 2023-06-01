@@ -1,6 +1,10 @@
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
-import 'package:pod_player/pod_player.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:fwfh_webview/fwfh_webview.dart';
+
+// import 'package:pod_player/pod_player.dart';
 
 class UserSectionPage extends StatelessWidget {
   const UserSectionPage(
@@ -12,15 +16,9 @@ class UserSectionPage extends StatelessWidget {
   final String sectionID;
   final String sectionTitle;
   final String videLink;
+
   @override
   Widget build(BuildContext context) {
-    final controller = PodPlayerController(
-        playVideoFrom: PlayVideoFrom.youtube(videLink),
-        podPlayerConfig: const PodPlayerConfig(
-          videoQualityPriority: [720, 360],
-          autoPlay: false,
-        ))
-      ..initialise();
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text(sectionTitle)),
@@ -34,19 +32,11 @@ class UserSectionPage extends StatelessWidget {
               child: Container(
                 margin: const EdgeInsets.all(10),
                 padding: const EdgeInsets.all(10),
-                child: PodVideoPlayer(
-                  controller: controller,
-                  podProgressBarConfig: const PodProgressBarConfig(
-                      padding: kIsWeb
-                          ? EdgeInsets.zero
-                          : EdgeInsets.only(
-                              bottom: 20,
-                              right: 20,
-                              left: 20,
-                            ),
-                      playingBarColor: Colors.blue,
-                      circleHandlerColor: Colors.blue,
-                      backgroundColor: Colors.blueGrey),
+                child: Center(
+                  child: HtmlWidget(
+                    '<iframe width="560" height="315" src="$videLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>',
+                    factoryBuilder: () => MyWidgetFactory(),
+                  ),
                 ),
               ),
             ),
@@ -59,4 +49,12 @@ class UserSectionPage extends StatelessWidget {
       ),
     );
   }
+}
+
+class MyWidgetFactory extends WidgetFactory with WebViewFactory {
+  // optional: override getter to configure how WebViews are built
+  @override
+  bool get webViewMediaPlaybackAlwaysAllow => true;
+  @override
+  bool get webView => true;
 }

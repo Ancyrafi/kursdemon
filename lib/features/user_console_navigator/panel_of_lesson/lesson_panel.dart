@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:kursdemo/features/user_console_navigator/panel_of_lesson/cubit/lesson_panel_cubit.dart';
 import 'package:kursdemo/features/user_console_navigator/panel_of_sections/sections.dart';
 import 'package:kursdemo/repository/repository.dart';
+import 'package:kursdemo/widgets/convert_to_embed.dart';
 import 'package:kursdemo/widgets/title_page_container.dart';
 
 import '../../../widgets/build_text_field.dart';
@@ -30,6 +32,8 @@ class _LessonPanelState extends State<LessonPanel> {
       create: (context) => LessonPanelCubit(Repository())..start(),
       child: BlocBuilder<LessonPanelCubit, LessonPanelState>(
         builder: (context, state) {
+          bool fromYouTube = false;
+          bool fromGoogleDrive = false;
           if (state.addLesson == false && state.addSection == false) {
             final oneLesson = state.lesson;
             return Container(
@@ -182,11 +186,51 @@ class _LessonPanelState extends State<LessonPanel> {
                   const SizedBox(
                     height: 10,
                   ),
-                  BuildTextField(
-                      enabled: true,
-                      hideText: false,
-                      hintText: 'Wklej link do twojego filmu',
-                      controller: videoLink),
+                  if (fromYouTube == true) 
+                    BuildTextField(
+                        enabled: true,
+                        hideText: false,
+                        hintText: 'Wklej link do twojego filmu z YouTube',
+                        controller: videoLink),
+                  if (fromGoogleDrive == true)
+                    BuildTextField(
+                        enabled: true,
+                        hideText: false,
+                        hintText: 'Wklej link do twojego filmu z Google Drive',
+                        controller: videoLink),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        if (fromYouTube == false) {
+                          setState(() {
+                            fromYouTube = true;
+                            fromGoogleDrive = false;
+                          });
+                        } else {
+                          setState(() {
+                            fromYouTube = false;
+                            fromGoogleDrive = false;
+                          });
+                        }
+                      },
+                      icon: const Icon(FontAwesome.youtube)),
+                  IconButton(
+                      onPressed: () {
+                        if (fromGoogleDrive == false) {
+                          setState(() {
+                            fromYouTube = false;
+                            fromGoogleDrive = true;
+                          });
+                        } else {
+                          setState(() {
+                            fromYouTube = false;
+                            fromGoogleDrive = false;
+                          });
+                        }
+                      },
+                      icon: const Icon(FontAwesome.google_plus)),
                   const SizedBox(
                     height: 10,
                   ),
@@ -194,10 +238,11 @@ class _LessonPanelState extends State<LessonPanel> {
                       onPressed: () {
                         if (sectionTitle.text.isNotEmpty &&
                             videoLink.text.isNotEmpty) {
+                          String embedLink = convertEmbed(videoLink.text);
                           context.read<LessonPanelCubit>().createSection(
                               lessonID: state.lessonID,
                               sublessonTitle: sectionTitle.text,
-                              videoLink: videoLink.text);
+                              videoLink: embedLink);
                           sectionTitle.clear();
                           videoLink.clear();
                           context.read<LessonPanelCubit>().exit();

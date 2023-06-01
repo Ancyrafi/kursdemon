@@ -1,11 +1,12 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:fwfh_webview/fwfh_webview.dart';
 import 'package:kursdemo/features/user_console_navigator/panel_of_lesson/cubit/lesson_panel_cubit.dart';
 import 'package:kursdemo/features/user_console_navigator/panel_of_sections/cubit/panel_sections_cubit.dart';
 import 'package:kursdemo/repository/repository.dart';
+
 import 'package:kursdemo/widgets/title_page_container.dart';
-import 'package:pod_player/pod_player.dart';
 
 class SectionPanel extends StatelessWidget {
   const SectionPanel(
@@ -21,14 +22,6 @@ class SectionPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = PodPlayerController(
-        playVideoFrom: PlayVideoFrom.youtube(videoLink),
-        podPlayerConfig: const PodPlayerConfig(
-          videoQualityPriority: [720, 360],
-          autoPlay: false,
-        ))
-      ..initialise();
-
     return BlocProvider(
       create: (context) => PanelSectionsCubit(Repository()),
       child: BlocBuilder<PanelSectionsCubit, PanelSectionsState>(
@@ -58,22 +51,10 @@ class SectionPanel extends StatelessWidget {
                       height: 10,
                     ),
                     Expanded(
-                      child: PodVideoPlayer(
-                        controller: controller,
-                        podProgressBarConfig: const PodProgressBarConfig(
-                          padding: kIsWeb
-                              ? EdgeInsets.zero
-                              : EdgeInsets.only(
-                                  bottom: 20,
-                                  right: 20,
-                                  left: 20,
-                                ),
-                          playingBarColor: Colors.blue,
-                          circleHandlerColor: Colors.blue,
-                          backgroundColor: Colors.blueGrey,
-                        ),
-                      ),
-                    ),
+                        child: HtmlWidget(
+                      '<iframe width="560" height="315" src="$videoLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>',
+                      factoryBuilder: () => MyWidgetFactory(),
+                    )),
                     const SizedBox(
                       height: 10,
                     ),
@@ -96,4 +77,12 @@ class SectionPanel extends StatelessWidget {
       ),
     );
   }
+}
+
+class MyWidgetFactory extends WidgetFactory with WebViewFactory {
+  // optional: override getter to configure how WebViews are built
+  @override
+  bool get webViewMediaPlaybackAlwaysAllow => true;
+  @override
+  bool get webView => true;
 }

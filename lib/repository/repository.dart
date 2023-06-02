@@ -137,12 +137,21 @@ class Repository {
     await _firebaseDataSource.deleteBlogSequence(blogID: blogID);
   }
 
-  Future<void> editBlogText({required String blogText, required String blogID}) async {
+  Future<void> editBlogText(
+      {required String blogText, required String blogID}) async {
     await _firebaseDataSource.editBlogSequence(
         blogText: blogText, blogID: blogID);
   }
 
   Stream blogContent() {
     return _firebaseDataSource.getBlogText();
+  }
+
+  Future<void> logIn({required String email, required String pass}) async {
+    await _firebaseDataSource.logIn(email: email, pass: pass);
+  }
+
+  Future<void> logOut() async {
+    await _firebaseDataSource.logOut();
   }
 }

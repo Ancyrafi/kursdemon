@@ -43,7 +43,11 @@ class UserSectionPage extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            ElevatedButton(onPressed: () {}, child: const Text('Ukończone'))
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Ukończone'))
           ],
         ),
       ),

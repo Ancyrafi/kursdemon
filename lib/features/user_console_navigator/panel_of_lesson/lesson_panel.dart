@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 import 'package:kursdemo/features/user_console_navigator/panel_of_lesson/cubit/lesson_panel_cubit.dart';
 import 'package:kursdemo/features/user_console_navigator/panel_of_sections/sections.dart';
@@ -60,11 +61,27 @@ class _LessonPanelState extends State<LessonPanel> {
                                   CrossAxisAlignment.center,
                               tilePadding: EdgeInsets.zero,
                               iconColor: Colors.black,
-                              title: Text('---> ${onLesson.title}'),
+                              title: Row(
+                                children: [
+                                  const Icon(FontAwesome.list),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  Text(onLesson.title),
+                                ],
+                              ),
                               children: [
                                 for (final onSection in onLesson.sections)
                                   ListTile(
-                                    title: Text('--> ${onSection.title}'),
+                                    title: Row(
+                                      children: [
+                                        const Icon(FontAwesome.circle),
+                                        const SizedBox(
+                                          width: 20,
+                                        ),
+                                        Text(onSection.title),
+                                      ],
+                                    ),
                                     onTap: () {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(

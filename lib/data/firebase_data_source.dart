@@ -277,4 +277,13 @@ class FirebaseDataSource {
       }).toList();
     });
   }
+
+  Future<void> logIn({required String email, required String pass}) async {
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: pass);
+  }
+
+  Future<void> logOut() async {
+    FirebaseAuth.instance.signOut();
+  }
 }

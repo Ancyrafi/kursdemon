@@ -79,6 +79,10 @@ class FirebaseDataSource {
 
 // KONIEC POBIERANIA I TWORZENIA SEKCJI I LEKCJI
 // POBIERANIE UZYTKOWNIKA < DODAWANIE I USUWANIE
+  final String admin = 'siudy@dev.pl';
+  final String adminpass = '123456';
+// adminstracja kodu,
+// musisz podać administracje kodu
   Future<void> addUser(
       {required String name,
       required String surname,
@@ -101,8 +105,8 @@ class FirebaseDataSource {
         },
       );
       await FirebaseAuth.instance.signOut();
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: 'siudy@dev.pl', password: '123456');
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: admin, password: adminpass);
     }
   }
 
@@ -138,8 +142,8 @@ class FirebaseDataSource {
             .collection('users')
             .doc(documentID)
             .delete();
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: 'siudy@dev.pl', password: '123456');
+        await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: admin, password: adminpass);
       }
     }
   }

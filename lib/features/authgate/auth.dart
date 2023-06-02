@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kursdemo/features/authgate/cubit/auth_cubit.dart';
 import 'package:kursdemo/features/home/home.dart';
+import 'package:kursdemo/features/home_user/home.dart';
+
 import 'package:kursdemo/repository/repository.dart';
 import 'package:kursdemo/widgets/build_text_field.dart';
 
@@ -63,7 +65,10 @@ class AuthGate extends StatelessWidget {
               ),
             );
           }
-          return HomePage();
+          if (user.email == 'siudy@dev.pl') {
+            return HomePage();
+          }
+          return HomePageUser();
         },
       ),
     );

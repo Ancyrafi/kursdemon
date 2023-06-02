@@ -100,6 +100,9 @@ class FirebaseDataSource {
           'userID': user.uid
         },
       );
+      await FirebaseAuth.instance.signOut();
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: 'siudy@dev.pl', password: '123456');
     }
   }
 
@@ -135,6 +138,8 @@ class FirebaseDataSource {
             .collection('users')
             .doc(documentID)
             .delete();
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: 'siudy@dev.pl', password: '123456');
       }
     }
   }

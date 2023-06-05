@@ -6,6 +6,7 @@ import '../user_console_navigator/panel_of_blog/my_little_blog.dart';
 import '../user_console_navigator/panel_of_lesson/lesson_panel.dart';
 import '../user_console_navigator/panel_of_social/panel_of_social.dart';
 import '../user_console_navigator/panel_of_users/user_panel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UserConsole extends StatefulWidget {
   const UserConsole({super.key});
@@ -35,7 +36,7 @@ class _UserConsoleState extends State<UserConsole> {
               },
               icon: const Icon(Icons.menu),
             ),
-            const Text('Administracja'),
+            Text(AppLocalizations.of(context)!.rootPanelTitle),
             IconButton(
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -48,12 +49,12 @@ class _UserConsoleState extends State<UserConsole> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(color: Colors.blue),
-              child: Text('Panel Zarządzania'),
+            DrawerHeader(
+              decoration: const BoxDecoration(color: Colors.blue),
+              child: Text(AppLocalizations.of(context)!.rootPanelRollTitle),
             ),
             ListTile(
-              title: const Text('Zarządzaj Użytkownikami'),
+              title: Text(AppLocalizations.of(context)!.rootPanelRollUser),
               onTap: () {
                 setState(() {
                   index = 1;
@@ -62,7 +63,7 @@ class _UserConsoleState extends State<UserConsole> {
               },
             ),
             ListTile(
-              title: const Text('Dodaj Lekcje'),
+              title: Text(AppLocalizations.of(context)!.rootPanelRollLesson),
               onTap: () {
                 setState(() {
                   index = 2;
@@ -71,7 +72,7 @@ class _UserConsoleState extends State<UserConsole> {
               },
             ),
             ListTile(
-              title: const Text('Dodaj Wpis na Blog'),
+              title: Text(AppLocalizations.of(context)!.rootPanelRollBlog),
               onTap: () {
                 setState(() {
                   index = 3;
@@ -80,7 +81,7 @@ class _UserConsoleState extends State<UserConsole> {
               },
             ),
             ListTile(
-              title: const Text('Dodaj SocialMedia'),
+              title: Text(AppLocalizations.of(context)!.rootPanelRollSocial),
               onTap: () {
                 setState(() {
                   index = 4;
@@ -92,7 +93,7 @@ class _UserConsoleState extends State<UserConsole> {
               height: 20,
             ),
             ListTile(
-              title: const Text('Wyloguj się'),
+              title: Text(AppLocalizations.of(context)!.rootPanelRollLogOut),
               onTap: () {
                 FirebaseAuth.instance.signOut();
                 Navigator.pushReplacement(context,
@@ -102,9 +103,15 @@ class _UserConsoleState extends State<UserConsole> {
           ],
         ),
       ),
-      body: Card(
-          margin: const EdgeInsets.all(10),
-          child: Center(child: userControlOption(index))),
+      body: Column(
+        children: [
+          Expanded(
+            child: Card(
+                margin: const EdgeInsets.all(10),
+                child: Center(child: userControlOption(index))),
+          ),
+        ],
+      ),
     );
   }
 
@@ -112,8 +119,8 @@ class _UserConsoleState extends State<UserConsole> {
     switch (index) {
       case 0:
         // Indeks Startowy
-        return const Column(children: [
-          Text('Witaj w Panelu Administracyjnym'),
+        return Column(children: [
+          Text(AppLocalizations.of(context)!.rootPanelFirstPage),
         ]);
       case 1:
         // Zarządzanie Użytkownikami

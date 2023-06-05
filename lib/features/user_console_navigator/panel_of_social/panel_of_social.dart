@@ -22,6 +22,7 @@ class PanelSocialMedia extends StatelessWidget {
           final linkInsta = TextEditingController();
           final linkTt = TextEditingController();
           return Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (state.check == true)

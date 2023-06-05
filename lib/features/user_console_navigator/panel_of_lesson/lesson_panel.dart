@@ -7,13 +7,11 @@ import 'package:kursdemo/features/user_console_navigator/panel_of_sections/secti
 import 'package:kursdemo/repository/repository.dart';
 import 'package:kursdemo/widgets/convert_to_embed.dart';
 import 'package:kursdemo/widgets/title_page_container.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../widgets/build_text_field.dart';
 
 class LessonPanel extends StatefulWidget {
-  const LessonPanel({
-    super.key,
-  });
+  const LessonPanel({Key? key}) : super(key: key);
 
   @override
   State<LessonPanel> createState() => _LessonPanelState();
@@ -36,153 +34,153 @@ class _LessonPanelState extends State<LessonPanel> {
         builder: (context, state) {
           if (state.addLesson == false && state.addSection == false) {
             final oneLesson = state.lesson;
-            return Container(
-              alignment: Alignment.center,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: const EdgeInsets.all(50),
-                margin: const EdgeInsets.all(50),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const TitlePageContainer(title: 'Twoja Lista Lekcji'),
-                    Expanded(
-                      child: ListView(
-                        children: [
-                          for (final onLesson in oneLesson)
-                            ExpansionTile(
-                              textColor: Colors.black,
-                              childrenPadding: EdgeInsets.zero,
-                              expandedAlignment: Alignment.center,
-                              expandedCrossAxisAlignment:
-                                  CrossAxisAlignment.center,
-                              tilePadding: EdgeInsets.zero,
-                              iconColor: Colors.black,
-                              title: Row(
-                                children: [
-                                  const Icon(FontAwesome.list),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                  Text(onLesson.title),
-                                ],
-                              ),
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TitlePageContainer(
+                    title: AppLocalizations.of(context)!.listLessonInfo),
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(10),
+                    child: ListView(
+                      children: [
+                        for (final onLesson in oneLesson)
+                          ExpansionTile(
+                            textColor: Colors.black,
+                            childrenPadding: EdgeInsets.zero,
+                            expandedAlignment: Alignment.center,
+                            expandedCrossAxisAlignment:
+                                CrossAxisAlignment.center,
+                            tilePadding: EdgeInsets.zero,
+                            iconColor: Colors.black,
+                            title: Row(
                               children: [
-                                for (final onSection in onLesson.sections)
-                                  ListTile(
-                                    title: Row(
-                                      children: [
-                                        const Icon(FontAwesome.circle),
-                                        const SizedBox(
-                                          width: 20,
-                                        ),
-                                        Text(onSection.title),
-                                      ],
-                                    ),
-                                    onTap: () {
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  SectionPanel(
-                                                    sectionID:
-                                                        onSection.sectionID,
-                                                    videoLink: onSection.link,
-                                                    sectionTitle:
-                                                        onSection.title,
-                                                    lessonID: onLesson.lessonID,
-                                                  )));
-                                    },
-                                  ),
+                                const Icon(FontAwesome.list),
                                 const SizedBox(
-                                  height: 10,
+                                  width: 20,
                                 ),
-                                ElevatedButton(
+                                Text(onLesson.title),
+                              ],
+                            ),
+                            children: [
+                              for (final onSection in onLesson.sections)
+                                ListTile(
+                                  title: Row(
+                                    children: [
+                                      const Icon(FontAwesome.circle),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      Text(onSection.title),
+                                    ],
+                                  ),
+                                  onTap: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                            builder: (context) => SectionPanel(
+                                                  sectionID:
+                                                      onSection.sectionID,
+                                                  videoLink: onSection.link,
+                                                  sectionTitle: onSection.title,
+                                                  lessonID: onLesson.lessonID,
+                                                )));
+                                  },
+                                ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.black),
+                                  onPressed: () {
+                                    context
+                                        .read<LessonPanelCubit>()
+                                        .addSection(onLesson.lessonID);
+                                  },
+                                  child: const Icon(Icons.add))
+                            ],
+                          ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.black),
                                     onPressed: () {
                                       context
                                           .read<LessonPanelCubit>()
-                                          .addSection(onLesson.lessonID);
+                                          .addLesson(true);
                                     },
-                                    child: const Icon(Icons.add))
-                              ],
-                            ),
-                          const SizedBox(
-                            height: 10,
+                                    child: Text(AppLocalizations.of(context)!
+                                        .dodajLekcje),
+                                  ),
+                                  Column(
+                                    children: [
+                                      DropdownButton<String>(
+                                          value: selectedLessonID,
+                                          hint: Text(
+                                              AppLocalizations.of(context)!
+                                                  .chooseLessonButton),
+                                          dropdownColor: Colors.black,
+                                          items: [
+                                            for (final onLesson in oneLesson)
+                                              DropdownMenuItem(
+                                                value: onLesson.lessonID,
+                                                child: Text(onLesson.title),
+                                              )
+                                          ],
+                                          onChanged: (String? newValue) {
+                                            setState(() {
+                                              selectedLessonID = newValue;
+                                            });
+                                          }),
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.black),
+                                        onPressed: () {
+                                          if (selectedLessonID == null) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                                    backgroundColor:
+                                                        Colors.black,
+                                                    content: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .errorChooseLesson)));
+                                          } else {
+                                            context
+                                                .read<LessonPanelCubit>()
+                                                .deleteLesson(
+                                                    selectedLessonID!);
+                                            Navigator.of(context).pop();
+                                          }
+                                        },
+                                        child: Text(
+                                            AppLocalizations.of(context)!
+                                                .deleteButtton),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                          Align(
-                            alignment: Alignment.bottomRight,
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.black),
-                                      onPressed: () {
-                                        context
-                                            .read<LessonPanelCubit>()
-                                            .addLesson(true);
-                                      },
-                                      child: const Text('Dodaj Lekcję'),
-                                    ),
-                                    Column(
-                                      children: [
-                                        DropdownButton<String>(
-                                            value: selectedLessonID,
-                                            hint: const Text('Wybierz lekcję'),
-                                            dropdownColor: Colors.black,
-                                            items: [
-                                              for (final onLesson in oneLesson)
-                                                DropdownMenuItem(
-                                                  value: onLesson.lessonID,
-                                                  child: Text(onLesson.title),
-                                                )
-                                            ],
-                                            onChanged: (String? newValue) {
-                                              setState(() {
-                                                selectedLessonID = newValue;
-                                              });
-                                            }),
-                                        ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              backgroundColor: Colors.black),
-                                          onPressed: () {
-                                            if (selectedLessonID == null) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(const SnackBar(
-                                                      backgroundColor:
-                                                          Colors.black,
-                                                      content: Text(
-                                                          'Musisz wybrać lekcję')));
-                                            } else {
-                                              context
-                                                  .read<LessonPanelCubit>()
-                                                  .deleteLesson(
-                                                      selectedLessonID!);
-                                              Navigator.of(context).pop();
-                                            }
-                                          },
-                                          child: const Text('Usuń Lekcję'),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             );
           }
           // Dodawanie Sekcji
@@ -190,14 +188,14 @@ class _LessonPanelState extends State<LessonPanel> {
             return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Dodawanie Sekcji'),
+                  Text(AppLocalizations.of(context)!.addSectionInfo),
                   const SizedBox(
                     height: 10,
                   ),
                   BuildTextField(
                       enabled: true,
                       hideText: false,
-                      hintText: 'Podaj tytuł sekcji dla twojej lekcji',
+                      hintText: AppLocalizations.of(context)!.addSectionTitle,
                       controller: sectionTitle),
                   const SizedBox(
                     height: 10,
@@ -205,12 +203,17 @@ class _LessonPanelState extends State<LessonPanel> {
                   BuildTextField(
                       enabled: true,
                       hideText: false,
-                      hintText: 'Wklej link do twojego filmu z YouTube',
+                      hintText:
+                          AppLocalizations.of(context)!.addSectionLinkYoutube,
                       controller: videoLink),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   BuildTextField(
                       enabled: true,
                       hideText: false,
-                      hintText: 'Wklej link do twojego filmu z Dysku Google',
+                      hintText:
+                          AppLocalizations.of(context)!.addSectionLinkGoogle,
                       controller: googleLink),
                   const SizedBox(
                     height: 10,
@@ -232,9 +235,9 @@ class _LessonPanelState extends State<LessonPanel> {
                           if (videoLink.text.isNotEmpty &&
                               googleLink.text.isNotEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                    'Podaj tylko jeden link, albo youtube albo do dysku google!'),
+                              SnackBar(
+                                content: Text(AppLocalizations.of(context)!
+                                    .sectionErrorMessage),
                               ),
                             );
                           } else {
@@ -254,27 +257,27 @@ class _LessonPanelState extends State<LessonPanel> {
                         }
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content:
-                                Text('Pole z tytułem sekcji jest wymagane'),
+                          SnackBar(
+                            content: Text(AppLocalizations.of(context)!
+                                .sectionErrorMessage2),
                           ),
                         );
                       }
                     },
-                    child: const Text('Dodaj Sekcję'),
+                    child: const Icon(Icons.add),
                   ),
                 ]);
           }
           // Dodawanie Lekcji
           return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const Text('Dodawanie Lekcji'),
+            Text(AppLocalizations.of(context)!.lessonInfo),
             const SizedBox(
               height: 10,
             ),
             BuildTextField(
                 enabled: true,
                 hideText: false,
-                hintText: 'Podaj tytuł twojej lekcji',
+                hintText: AppLocalizations.of(context)!.lessonAddTitle,
                 controller: lessonTitle),
             const SizedBox(
               height: 10,
@@ -289,13 +292,13 @@ class _LessonPanelState extends State<LessonPanel> {
                   context.read<LessonPanelCubit>().exit();
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Nie podałeś żadnego tytułu lekcji'),
+                    SnackBar(
+                      content: Text(AppLocalizations.of(context)!.errorLesson),
                     ),
                   );
                 }
               },
-              child: const Text('Stwórz Lekcję'),
+              child: const Icon(Icons.add),
             ),
             Align(
               alignment: Alignment.bottomCenter,

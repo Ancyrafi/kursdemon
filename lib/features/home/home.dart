@@ -5,6 +5,7 @@ import 'package:kursdemo/features/userconsole/user_console.dart';
 import '../blog/myblog.dart';
 import '../list_lesson/list_lesson.dart';
 import '../socialmedia/socialmedia.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -27,7 +28,7 @@ class HomePage extends StatelessWidget {
                 },
                 icon: const Icon(Icons.menu),
               ),
-              const Text('Nazwa Kursu'),
+              Text(AppLocalizations.of(context)!.homeTitle),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       shape: const CircleBorder(),

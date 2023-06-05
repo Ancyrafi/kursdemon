@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kursdemo/features/user_content/user_contetn.dart';
 
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../blog/myblog.dart';
 import '../list_lesson/list_lesson.dart';
@@ -28,7 +28,7 @@ class HomePageUser extends StatelessWidget {
                 },
                 icon: const Icon(Icons.menu),
               ),
-              const Text('Nazwa Kursu'),
+              Text(AppLocalizations.of(context)!.homeTitle),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       shape: const CircleBorder(),

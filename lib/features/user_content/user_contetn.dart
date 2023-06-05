@@ -6,19 +6,24 @@ class UserContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final User? user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Panel Użytkownika'),
+        title: const Center(child: Text('Panel Użytkownika')),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ElevatedButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.of(context).pop();
-              },
-              child: const Text('Wyloguj się'))
+          Text(user?.displayName ?? ''),
+          const SizedBox(height: 10,),
+          Center(
+            child: ElevatedButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Wyloguj się')),
+          )
         ],
       ),
     );

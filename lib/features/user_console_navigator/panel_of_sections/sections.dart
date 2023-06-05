@@ -5,7 +5,7 @@ import 'package:fwfh_webview/fwfh_webview.dart';
 import 'package:kursdemo/features/user_console_navigator/panel_of_lesson/cubit/lesson_panel_cubit.dart';
 import 'package:kursdemo/features/user_console_navigator/panel_of_sections/cubit/panel_sections_cubit.dart';
 import 'package:kursdemo/repository/repository.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kursdemo/widgets/title_page_container.dart';
 
 class SectionPanel extends StatelessWidget {
@@ -66,7 +66,7 @@ class SectionPanel extends StatelessWidget {
                             sectionID: sectionID, lessonID: lessonID);
                         Navigator.of(context).pop();
                       },
-                      child: const Text('Usuń sekcję'),
+                      child: Text(AppLocalizations.of(context)!.deleteButtton),
                     ),
                   ],
                 ),

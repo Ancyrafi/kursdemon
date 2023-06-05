@@ -5,7 +5,7 @@ import 'package:kursdemo/features/user_console_navigator/panel_of_blog/cubit/my_
 import 'package:kursdemo/features/user_console_navigator/panel_of_blog/edit_view.blog.dart';
 import 'package:kursdemo/repository/repository.dart';
 import 'package:kursdemo/widgets/build_text_field.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:quill_html_editor/quill_html_editor.dart';
 
 class MyBlog extends StatelessWidget {
@@ -45,7 +45,7 @@ class MyBlog extends StatelessWidget {
                     BuildTextField(
                         enabled: true,
                         hideText: false,
-                        hintText: 'Podaj Tytuł bloga',
+                        hintText: AppLocalizations.of(context)!.titleBlog,
                         controller: titleController),
                     const SizedBox(
                       height: 10,
@@ -65,7 +65,7 @@ class MyBlog extends StatelessWidget {
                           backgroundColor: Colors.grey,
                           controller: controller,
                           minHeight: 400,
-                          hintText: 'Zacznij tworzyć swój wpis',
+                          hintText: AppLocalizations.of(context)!.hintBlogText,
                         ),
                       ),
                     ),
@@ -84,7 +84,7 @@ class MyBlog extends StatelessWidget {
                               titleController.clear();
                               context.read<MyBlogCubit>().exit();
                             },
-                            child: const Text('Zapisz')),
+                            child: Text(AppLocalizations.of(context)!.saveButton)),
                         IconButton(
                             onPressed: () {
                               context.read<MyBlogCubit>().exit();
@@ -115,7 +115,7 @@ class MyBlog extends StatelessWidget {
                                     blogText: oneBlog.blogText,
                                     title: oneBlog.title)));
                           },
-                          child: const Text('Edytuj'),
+                          child: Text(AppLocalizations.of(context)!.editButton),
                         ),
                         ElevatedButton(
                             onPressed: () {
@@ -123,7 +123,7 @@ class MyBlog extends StatelessWidget {
                                   .read<MyBlogCubit>()
                                   .deleteBlog(blogID: oneBlog.blogID);
                             },
-                            child: const Text('Usuń'))
+                            child: Text(AppLocalizations.of(context)!.deleteButtton))
                       ],
                     )
                   ],
@@ -135,7 +135,7 @@ class MyBlog extends StatelessWidget {
                       onPressed: () {
                         context.read<MyBlogCubit>().changetoAdd();
                       },
-                      child: const Text('Dodaj Wpis'))
+                      child: Text(AppLocalizations.of(context)!.addBlogButton))
                 ],
               )
             ],

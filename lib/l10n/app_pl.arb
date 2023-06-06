@@ -28,6 +28,16 @@
   "sectionErrorMessage2": "Pole z tytułem sekcji jest wymagane",
   "lessonInfo": "Dodawanie Lekcji",
   "lessonAddTitle": "Podaj tytuł lekcji",
-  "errorLesson": "Nie podałeś żadnego tytułu lekcji"
+  "errorLesson": "Nie podałeś żadnego tytułu lekcji",
+  "errorSocial": "Musisz wypełnić to pole",
+  "addUserInfo": "Dodawanie Użytkownika",
+  "addUserName": "Podaj imię swojego kursanta",
+  "addUserSurrname": "Podaj nazwisko swojego kursanta",
+  "addUserEmail": "Podaj E-mail kursanta",
+  "addUserPassword": "Tymczasowe hasło kursanta",
+  "addUserButton": "Utwórz Konto",
+  "addUserPassGenButton": "Generuj Hasło",
+  "userLessonInfo": "Lekcje",
+  "finishButton": "Ukończone"
   
 }

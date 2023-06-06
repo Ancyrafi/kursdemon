@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:kursdemo/features/user_console_navigator/panel_of_social/cubit/panel_social_cubit.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kursdemo/repository/repository.dart';
 
 class PanelSocialMedia extends StatelessWidget {
@@ -89,12 +89,12 @@ class PanelSocialMedia extends StatelessWidget {
                                         linkFb.clear();
                                       } else {
                                         ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
+                                            .showSnackBar(SnackBar(
                                                 content: Text(
-                                                    'Musisz wypełnić to pole')));
+                                                    AppLocalizations.of(context)!.errorSocial)));
                                       }
                                     },
-                                    child: const Text('Zapisz'),
+                                    child: Text(AppLocalizations.of(context)!.saveButton),
                                   ),
                                   Switch(
                                       value: oneSocial.showFacebook,
@@ -149,12 +149,12 @@ class PanelSocialMedia extends StatelessWidget {
                                         linkInsta.clear();
                                       } else {
                                         ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
+                                            .showSnackBar(SnackBar(
                                                 content: Text(
-                                                    'Musisz wypełnić to pole')));
+                                                    AppLocalizations.of(context)!.errorSocial)));
                                       }
                                     },
-                                    child: const Text('Zapisz'),
+                                    child: Text(AppLocalizations.of(context)!.saveButton),
                                   ),
                                   Switch(
                                       value: oneSocial.showInstagram,
@@ -208,12 +208,12 @@ class PanelSocialMedia extends StatelessWidget {
                                         linkYt.clear();
                                       } else {
                                         ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
+                                            .showSnackBar(SnackBar(
                                                 content: Text(
-                                                    'Musisz wypełnić to pole')));
+                                                    AppLocalizations.of(context)!.errorSocial)));
                                       }
                                     },
-                                    child: const Text('Zapisz'),
+                                    child: Text(AppLocalizations.of(context)!.saveButton),
                                   ),
                                   Switch(
                                       value: oneSocial.showYouTube,
@@ -267,12 +267,12 @@ class PanelSocialMedia extends StatelessWidget {
                                         linkTt.clear();
                                       } else {
                                         ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
+                                            .showSnackBar(SnackBar(
                                                 content: Text(
-                                                    'Musisz wypełnić to pole')));
+                                                    AppLocalizations.of(context)!.errorSocial)));
                                       }
                                     },
-                                    child: const Text('Zapisz'),
+                                    child: Text(AppLocalizations.of(context)!.saveButton),
                                   ),
                                   Switch(
                                       value: oneSocial.showTwitter,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kursdemo/features/list_lesson/cubit/lesson_cubit.dart';
 import 'package:kursdemo/features/sections/user_section.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kursdemo/repository/repository.dart';
 
 import '../../widgets/title_page_container.dart';
@@ -43,8 +43,8 @@ class _ListLessonState extends State<ListLesson> {
 
           return ListView(
             children: [
-              const TitlePageContainer(
-                title: 'Lekcje',
+              TitlePageContainer(
+                title: AppLocalizations.of(context)!.userLessonInfo,
               ),
               for (final onLesson in oneLesson)
                 ExpansionTile(

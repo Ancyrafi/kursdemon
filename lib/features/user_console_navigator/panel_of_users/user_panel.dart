@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kursdemo/features/user_console_navigator/panel_of_users/cubit/user_panel_cubit.dart';
 import 'package:kursdemo/repository/repository.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../widgets/build_text_field.dart';
 import '../../../widgets/random_password.dart';
 
@@ -30,14 +30,14 @@ class _AddUsersState extends State<AddUsers> {
           final users = state.users;
           if (state.addUser) {
             return Column(children: [
-              const Text('Dodawanie Użytkownika'),
+              Text(AppLocalizations.of(context)!.addUserInfo),
               const SizedBox(
                 height: 10,
               ),
               BuildTextField(
                   enabled: true,
                   hideText: false,
-                  hintText: 'Podaj imię swojego kursanta',
+                  hintText: AppLocalizations.of(context)!.addUserName,
                   controller: name),
               const SizedBox(
                 height: 10,
@@ -45,14 +45,14 @@ class _AddUsersState extends State<AddUsers> {
               BuildTextField(
                   enabled: true,
                   hideText: false,
-                  hintText: 'Podaj nazwisko swojego kursanta',
+                  hintText: AppLocalizations.of(context)!.addUserSurrname,
                   controller: surname),
               const SizedBox(
                 height: 10,
               ),
               BuildTextField(
                 enabled: true,
-                hintText: 'Podaj E-mail Użytkownika',
+                hintText: AppLocalizations.of(context)!.addUserEmail,
                 controller: email,
                 hideText: false,
               ),
@@ -62,7 +62,7 @@ class _AddUsersState extends State<AddUsers> {
               BuildTextField(
                   enabled: true,
                   hideText: false,
-                  hintText: 'Tymczasowe hasło dla użytkownika',
+                  hintText: AppLocalizations.of(context)!.addUserPassword,
                   controller: password),
               const SizedBox(
                 height: 10,
@@ -109,7 +109,7 @@ class _AddUsersState extends State<AddUsers> {
                                 )));
                       }
                     },
-                    child: const Text('Utwórz Konto'),
+                    child: Text(AppLocalizations.of(context)!.addUserButton),
                   ),
                   const SizedBox(
                     width: 10,
@@ -119,7 +119,8 @@ class _AddUsersState extends State<AddUsers> {
                       String randomPassword = generatePassword();
                       password.text = randomPassword;
                     },
-                    child: const Text('Generuj hasło'),
+                    child: Text(
+                        AppLocalizations.of(context)!.addUserPassGenButton),
                   ),
                 ],
               ),
@@ -165,7 +166,7 @@ class _AddUsersState extends State<AddUsers> {
                       height: 10,
                     ),
                     ListTile(
-                      title: Text('Hasło: ${user.pass}'),
+                      title: Text('Password: ${user.pass}'),
                     ),
                     const SizedBox(
                       height: 10,
@@ -190,7 +191,7 @@ class _AddUsersState extends State<AddUsers> {
                           );
                         }
                       },
-                      child: const Text('Usuń'),
+                      child: Text(AppLocalizations.of(context)!.deleteButtton),
                     ),
                   ],
                 ),

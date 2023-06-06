@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kursdemo/features/authgate/auth.dart';
+import 'package:kursdemo/widgets/title_page_container.dart';
 
 import '../user_console_navigator/panel_of_blog/my_little_blog.dart';
 import '../user_console_navigator/panel_of_lesson/lesson_panel.dart';
@@ -51,7 +52,8 @@ class _UserConsoleState extends State<UserConsole> {
           children: <Widget>[
             DrawerHeader(
               decoration: const BoxDecoration(color: Colors.blue),
-              child: Text(AppLocalizations.of(context)!.rootPanelRollTitle),
+              child: TitlePageContainer(
+                  title: AppLocalizations.of(context)!.rootPanelRollTitle),
             ),
             ListTile(
               title: Text(AppLocalizations.of(context)!.rootPanelRollUser),

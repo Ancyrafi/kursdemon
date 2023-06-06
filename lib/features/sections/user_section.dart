@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:fwfh_webview/fwfh_webview.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // import 'package:pod_player/pod_player.dart';
 
 class UserSectionPage extends StatelessWidget {
@@ -47,7 +47,7 @@ class UserSectionPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('Ukończone'))
+                child: Text(AppLocalizations.of(context)!.finishButton))
           ],
         ),
       ),

@@ -38,5 +38,7 @@
   "addUserButton": "Create Account",
   "addUserPassGenButton": "Generate Password",
   "userLessonInfo": "Lesson",
-  "finishButton": "Finish"
+  "finishButton": "Finish",
+  "password": "Password...",
+  "loginButton": "Login"
 }

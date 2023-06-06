@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kursdemo/features/authgate/cubit/auth_cubit.dart';
 import 'package:kursdemo/features/home/home.dart';
 import 'package:kursdemo/features/home_user/home.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kursdemo/repository/repository.dart';
 import 'package:kursdemo/widgets/build_text_field.dart';
 
@@ -35,7 +35,7 @@ class AuthGate extends StatelessWidget {
                         BuildTextField(
                             enabled: true,
                             hideText: false,
-                            hintText: 'E - mail',
+                            hintText: 'E - mail...',
                             controller: email),
                         const SizedBox(
                           height: 10,
@@ -43,7 +43,7 @@ class AuthGate extends StatelessWidget {
                         BuildTextField(
                             enabled: true,
                             hideText: true,
-                            hintText: 'Wpisz hasło...',
+                            hintText: AppLocalizations.of(context)!.password,
                             controller: pass),
                         const SizedBox(
                           height: 10,
@@ -56,7 +56,7 @@ class AuthGate extends StatelessWidget {
                                 .read<AuthCubit>()
                                 .logIn(email: email.text, pass: pass.text);
                           },
-                          child: const Text('Logowanie'),
+                          child: Text(AppLocalizations.of(context)!.loginButton),
                         ),
                       ],
                     ),

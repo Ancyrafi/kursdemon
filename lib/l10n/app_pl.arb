@@ -38,6 +38,8 @@
   "addUserButton": "Utwórz Konto",
   "addUserPassGenButton": "Generuj Hasło",
   "userLessonInfo": "Lekcje",
-  "finishButton": "Ukończone"
+  "finishButton": "Ukończone",
+  "password": "Wprowadź hasło...",
+  "loginButton": "Logowanie"
   
 }

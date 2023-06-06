@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         Locale('en'), // English
         Locale('pl'), // polski
       ],
-      locale: const Locale('pl'),
+      locale: const Locale('en'),
       home: AuthGate(),
     );
   }

@@ -29,10 +29,11 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale('en'), // English
+        Locale('en'), // angielski
         Locale('pl'), // polski
+        Locale('es'), // hiszpański
       ],
-      locale: const Locale('en'),
+      locale: const Locale('pl'),
       home: AuthGate(),
     );
   }

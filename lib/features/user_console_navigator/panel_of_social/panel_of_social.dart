@@ -91,10 +91,13 @@ class PanelSocialMedia extends StatelessWidget {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(
                                                 content: Text(
-                                                    AppLocalizations.of(context)!.errorSocial)));
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .errorSocial)));
                                       }
                                     },
-                                    child: Text(AppLocalizations.of(context)!.saveButton),
+                                    child: Text(AppLocalizations.of(context)!
+                                        .saveButton),
                                   ),
                                   Switch(
                                       value: oneSocial.showFacebook,
@@ -151,10 +154,13 @@ class PanelSocialMedia extends StatelessWidget {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(
                                                 content: Text(
-                                                    AppLocalizations.of(context)!.errorSocial)));
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .errorSocial)));
                                       }
                                     },
-                                    child: Text(AppLocalizations.of(context)!.saveButton),
+                                    child: Text(AppLocalizations.of(context)!
+                                        .saveButton),
                                   ),
                                   Switch(
                                       value: oneSocial.showInstagram,
@@ -210,10 +216,13 @@ class PanelSocialMedia extends StatelessWidget {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(
                                                 content: Text(
-                                                    AppLocalizations.of(context)!.errorSocial)));
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .errorSocial)));
                                       }
                                     },
-                                    child: Text(AppLocalizations.of(context)!.saveButton),
+                                    child: Text(AppLocalizations.of(context)!
+                                        .saveButton),
                                   ),
                                   Switch(
                                       value: oneSocial.showYouTube,
@@ -269,10 +278,13 @@ class PanelSocialMedia extends StatelessWidget {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(
                                                 content: Text(
-                                                    AppLocalizations.of(context)!.errorSocial)));
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .errorSocial)));
                                       }
                                     },
-                                    child: Text(AppLocalizations.of(context)!.saveButton),
+                                    child: Text(AppLocalizations.of(context)!
+                                        .saveButton),
                                   ),
                                   Switch(
                                       value: oneSocial.showTwitter,

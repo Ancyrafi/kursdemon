@@ -76,29 +76,39 @@ class _AddUsersState extends State<AddUsers> {
                           name.text.isNotEmpty &&
                           password.text.isNotEmpty &&
                           surname.text.isNotEmpty) {
-                        try {
-                          context.read<UserPanelCubit>().addUser(
-                              name: name.text,
-                              surname: surname.text,
-                              email: email.text,
-                              pass: password.text);
-                          context.read<UserPanelCubit>().user(false);
-                        } catch (error) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                error.toString(),
-                                style: const TextStyle(color: Colors.white),
+                        if (password.text.length >= 6) {
+                          try {
+                            context.read<UserPanelCubit>().addUser(
+                                name: name.text,
+                                surname: surname.text,
+                                email: email.text,
+                                pass: password.text);
+                            context.read<UserPanelCubit>().user(false);
+                          } catch (error) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  error.toString(),
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                                backgroundColor: Colors.black,
                               ),
-                              backgroundColor: Colors.black,
-                            ),
-                          );
-                        }
+                            );
+                          }
 
-                        email.clear();
-                        password.clear();
-                        name.clear();
-                        surname.clear();
+                          email.clear();
+                          password.clear();
+                          name.clear();
+                          surname.clear();
+                        } else {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                                  backgroundColor: Colors.black,
+                                  content: Text(
+                                    'Hasło musi zawierać minimum 6 znaków',
+                                    style: TextStyle(color: Colors.white),
+                                  )));
+                        }
                       } else {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(

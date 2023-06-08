@@ -9,23 +9,30 @@ part 'lesson_panel_state.dart';
 class LessonPanelCubit extends Cubit<LessonPanelState> {
   LessonPanelCubit(this._repository)
       : super(LessonPanelState(
-            lesson: [],
-            errormsg: '',
-            loading: false,
-            addLesson: false,
-            lessonID: '',
-            addSection: false));
+          lesson: [],
+          errormsg: '',
+          loading: false,
+          addLesson: false,
+          lessonID: '',
+          addSection: false,
+          limitLesson: false,
+          limitSection: false,
+        ));
   final Repository _repository;
   StreamSubscription? _streamSubscription;
   Future<void> start() async {
     _streamSubscription = _repository.getLesson().listen((lesson) {
-      emit(LessonPanelState(
-          addLesson: false,
-          errormsg: '',
-          lessonID: '',
-          loading: false,
-          lesson: lesson,
-          addSection: false));
+      _repository.limitLesson().then((limitLesson) {
+        emit(LessonPanelState(
+            addLesson: false,
+            errormsg: '',
+            lessonID: '',
+            loading: false,
+            lesson: lesson,
+            addSection: false,
+            limitLesson: limitLesson,
+            limitSection: false));
+      });
     })
       ..onError((error) {
         emit(LessonPanelState(
@@ -34,7 +41,9 @@ class LessonPanelCubit extends Cubit<LessonPanelState> {
             lessonID: '',
             errormsg: error.toString(),
             loading: true,
-            lesson: []));
+            lesson: [],
+            limitLesson: false,
+            limitSection: false));
       });
   }
 
@@ -72,5 +81,39 @@ class LessonPanelCubit extends Cubit<LessonPanelState> {
   Future<void> close() {
     _streamSubscription?.cancel();
     return super.close();
+  }
+
+  Future<void> start2() async {
+    _streamSubscription = _repository.getLesson().listen((lesson) async {
+      bool limitLesson = await _repository.limitLesson();
+      bool limitSection = false;
+      for (final oneLesson in lesson) {
+        limitSection =
+            await _repository.limitSections(lessonID: oneLesson.lessonID);
+        if (limitSection) {
+          break; // przerywamy pętlę jak tylko znajdziemy lekcję z przekroczonym limitem sekcji
+        }
+      }
+      emit(LessonPanelState(
+          addLesson: false,
+          errormsg: '',
+          lessonID: '',
+          loading: false,
+          lesson: lesson,
+          addSection: false,
+          limitLesson: limitLesson,
+          limitSection: limitSection));
+    })
+      ..onError((error) {
+        emit(LessonPanelState(
+            addSection: false,
+            addLesson: false,
+            lessonID: '',
+            errormsg: error.toString(),
+            loading: true,
+            lesson: [],
+            limitLesson: false,
+            limitSection: false));
+      });
   }
 }

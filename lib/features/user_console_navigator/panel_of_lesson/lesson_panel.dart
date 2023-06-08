@@ -29,11 +29,13 @@ class _LessonPanelState extends State<LessonPanel> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LessonPanelCubit(Repository())..start(),
+      create: (context) => LessonPanelCubit(Repository())..start2(),
       child: BlocBuilder<LessonPanelCubit, LessonPanelState>(
         builder: (context, state) {
           if (state.addLesson == false && state.addSection == false) {
             final oneLesson = state.lesson;
+            final lessonLimit = state.limitLesson;
+            final sectionLimit = state.limitSection;
             return Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -91,15 +93,19 @@ class _LessonPanelState extends State<LessonPanel> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.black),
-                                  onPressed: () {
-                                    context
-                                        .read<LessonPanelCubit>()
-                                        .addSection(onLesson.lessonID);
-                                  },
-                                  child: const Icon(Icons.add))
+                              if (sectionLimit == false)
+                                ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.black),
+                                    onPressed: () {
+                                      context
+                                          .read<LessonPanelCubit>()
+                                          .addSection(onLesson.lessonID);
+                                    },
+                                    child: const Icon(Icons.add)),
+                              if (sectionLimit == true)
+                                const Text(
+                                    'Wykorzystano dostępny limit w tym pakiecie')
                             ],
                           ),
                         const SizedBox(
@@ -113,17 +119,21 @@ class _LessonPanelState extends State<LessonPanel> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.black),
-                                    onPressed: () {
-                                      context
-                                          .read<LessonPanelCubit>()
-                                          .addLesson(true);
-                                    },
-                                    child: Text(AppLocalizations.of(context)!
-                                        .dodajLekcje),
-                                  ),
+                                  if (lessonLimit == false)
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.black),
+                                      onPressed: () {
+                                        context
+                                            .read<LessonPanelCubit>()
+                                            .addLesson(true);
+                                      },
+                                      child: Text(AppLocalizations.of(context)!
+                                          .dodajLekcje),
+                                    ),
+                                  if (lessonLimit == true)
+                                    const Text(
+                                        'Wykorzystano dostępny limit w tym pakiecie'),
                                   Column(
                                     children: [
                                       DropdownButton<String>(

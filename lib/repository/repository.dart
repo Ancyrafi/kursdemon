@@ -154,4 +154,12 @@ class Repository {
   Future<void> logOut() async {
     await _firebaseDataSource.logOut();
   }
+
+  Future<bool> limitLesson() async {
+    return _firebaseDataSource.limitLesson();
+  }
+
+  Future<bool> limitSections({required String lessonID}) async {
+    return _firebaseDataSource.limitSections(lessonId: lessonID);
+  }
 }

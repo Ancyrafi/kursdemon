@@ -7,12 +7,16 @@ class LessonPanelState {
       required this.loading,
       required this.lesson,
       required this.lessonID,
-      required this.addSection});
+      required this.addSection,
+      required this.limitLesson,
+      required this.limitSection});
   bool addLesson = false;
   bool addSection = false;
   String errormsg;
   String lessonID;
   bool loading = false;
+  bool limitLesson = false;
+  bool limitSection = false;
   final List<Lesson> lesson;
 
   LessonPanelState copyWith({
@@ -22,8 +26,12 @@ class LessonPanelState {
     String? errormsg,
     bool? loading,
     List<Lesson>? lesson,
+    bool? limitLesson,
+    bool? limitSection
   }) {
     return LessonPanelState(
+      limitLesson: limitLesson ?? this.limitLesson,
+      limitSection: limitSection ?? this.limitSection,
       lessonID: lessonID ?? this.lessonID,
       addSection: addSection ?? this.addSection,
       addLesson: addLesson ?? this.addLesson,

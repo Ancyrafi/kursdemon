@@ -10,7 +10,10 @@ class FirebaseDataSource {
   Future<String> createLesson({required String lessonTitle}) async {
     DocumentReference lessonReference = await FirebaseFirestore.instance
         .collection('lesson')
-        .add({'lessonTitle': lessonTitle});
+        .add({
+      'lessonTitle': lessonTitle,
+      'created_at': FieldValue.serverTimestamp()
+    });
 
     return lessonReference.id;
   }
@@ -22,6 +25,24 @@ class FirebaseDataSource {
         .delete();
   }
 
+  // Limity Lekcji........................aaaa
+  Future<bool> limitLesson() async {
+    QuerySnapshot lessonsSnapshot =
+        await FirebaseFirestore.instance.collection('lesson').get();
+
+    return lessonsSnapshot.docs.length >= 4;
+  }
+
+  Future<bool> limitSections({required String lessonId}) async {
+    QuerySnapshot sectionsSnapshot = await FirebaseFirestore.instance
+        .collection('lesson')
+        .doc(lessonId)
+        .collection('section')
+        .get();
+    return sectionsSnapshot.docs.length >= 3;
+  }
+
+// Limity Sekcji ..................................aaaaa
   Future<void> deletSection(
       {required String lessonid, required String sectionid}) async {
     await FirebaseFirestore.instance
@@ -37,17 +58,23 @@ class FirebaseDataSource {
       required String videoLink,
       required String lessonId}) async {
     // używamy identyfikatora lekcji zamiast tytułu
+
     await FirebaseFirestore.instance
         .collection('lesson')
         .doc(lessonId)
         .collection('section')
-        .add({'sublessonTitle': sublessonTitle, 'videoLink': videoLink});
+        .add({
+      'sublessonTitle': sublessonTitle,
+      'videoLink': videoLink,
+      'created_at': FieldValue.serverTimestamp()
+    });
   }
 
   // pobranie lekcji
   Stream<List<Lesson>> getLesson() {
     return FirebaseFirestore.instance
         .collection('lesson')
+        .orderBy('created_at')
         .snapshots()
         .asyncMap((querySnapshot) async {
       return await Future.wait(querySnapshot.docs.map((doc) async {
@@ -66,6 +93,7 @@ class FirebaseDataSource {
         .collection('lesson')
         .doc(lessonID)
         .collection('section')
+        .orderBy('created_at')
         .snapshots()
         .map((querySnapshot) {
       return querySnapshot.docs.map((doc) {

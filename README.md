@@ -1,2 +1,2 @@
 #E-learning Platform
-![alt text](images\platform.gif "Presentation")
+![alt text](images/platform.gif "Presentation")
